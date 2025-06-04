@@ -10,10 +10,10 @@ public class MainCommand {
 
     public MainCommand(HungerGames plugin) {
         this.command = new CommandTree("hungergames");
-        this.command.withHelp("Base HungerGames command", "All the commands you'll need for HungerGames!");
+        this.command.withHelp("HungerGames 基础命令", "包含 HungerGames 游戏所需的所有命令！");
         this.command.withAliases("hg");
 
-        // Register sub-commands
+        // 注册子命令
         this.command.then(new CreateCommand(plugin).register());
         this.command.then(new DebugCommand(plugin).register());
         this.command.then(new DeleteArenaCommand(plugin).register());

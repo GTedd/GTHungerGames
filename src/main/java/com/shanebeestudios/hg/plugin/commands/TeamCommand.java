@@ -57,14 +57,14 @@ public class TeamCommand extends SubCommand {
                         Player teamLeader = info.sender();
                         PlayerData playerData = this.playerManager.getPlayerData(teamLeader);
                         if (playerData == null) {
-                            // Not in a game
+                            // 不在有效的游戏中
                             Util.sendPrefixedMessage(teamLeader, this.lang.command_base_not_in_valid_game);
                             return;
                         }
 
                         GameTeam gameTeam = playerData.getTeam();
                         if (gameTeam == null) {
-                            // Don't current have a team
+                            // 当前没有队伍
                             Util.sendMessage(teamLeader, this.lang.command_team_none);
                             return;
                         }
@@ -73,32 +73,32 @@ public class TeamCommand extends SubCommand {
                         Player invitee = info.args().getByClass("player", Player.class);
                         assert invitee != null;
                         if (!game.getGamePlayerData().getPlayers().contains(invitee)) {
-                            // Invitee is not in game
+                            // 被邀请者不在游戏中
                             Util.sendMessage(teamLeader, this.lang.command_team_player_not_available.replace("<player>", invitee.getName()));
                             return;
                         }
 
                         if (invitee == teamLeader) {
-                            // Cannot invite yourself to a team
+                            // 不能邀请自己加入队伍
                             Util.sendMessage(teamLeader, this.lang.command_team_self);
                             return;
                         }
                         if (gameTeam.getLeader() != teamLeader) {
-                            // Only team leader can invite others
+                            // 只有队长可以邀请他人
                             Util.sendMessage(teamLeader, this.lang.command_team_only_leader);
                             return;
                         }
                         if (gameTeam.isOnTeam(invitee)) {
-                            // Invite is already on a team
+                            // 被邀请者已经在队伍中
                             Util.sendMessage(teamLeader, this.lang.command_team_on_team.replace("<player>", invitee.getName()));
                             return;
                         }
                         if ((gameTeam.getPlayers().size() + gameTeam.getPendingPlayers().size()) >= Config.TEAM_MAX_TEAM_SIZE) {
-                            // Size check
+                            // 队伍人数已达上限
                             Util.sendMessage(teamLeader, this.lang.command_team_max);
                             return;
                         }
-                        // Finally invite player to team
+                        // 最终邀请玩家加入队伍
                         gameTeam.invite(invitee);
                         Util.sendMessage(teamLeader, this.lang.command_team_invited.replace("<player>", invitee.getName()));
                     })))
@@ -107,13 +107,13 @@ public class TeamCommand extends SubCommand {
                     Player player = info.sender();
                     PlayerData playerData = this.playerManager.getPlayerData(player);
                     if (playerData == null) {
-                        // Not in a game
+                        // 不在有效的游戏中
                         Util.sendPrefixedMessage(player, this.lang.command_base_not_in_valid_game);
                         return;
                     }
                     GameTeam gameTeam = playerData.getPendingTeam();
                     if (gameTeam == null || !gameTeam.isPending(player)) {
-                        // No team currently pending an invitation
+                        // 当前没有待处理的邀请
                         Util.sendMessage(player, this.lang.command_team_no_pend);
                         return;
                     }
@@ -132,7 +132,7 @@ public class TeamCommand extends SubCommand {
                     }
                     GameTeam gameTeam = playerData.getPendingTeam();
                     if (gameTeam == null || !gameTeam.isPending(player)) {
-                        // No team currently pending an invitation
+                        // 当前没有待处理的邀请
                         Util.sendMessage(player, this.lang.command_team_no_pend);
                         return;
                     }

@@ -1,359 +1,323 @@
-#  This is the language file
-#  Change the messages to your liking
-#  Mini message formatting is supported, see https://docs.advntr.dev/minimessage/format
-#  Messages that contain <> indicate things that the plugin replaces, such as <player>, <arena> or <distance>
-#  Comments in this file will be removed if we update messages during a plugin update
-#  To restore these messages, backup this file, delete it, and restart your server, this will create a new lang file with all the notes
+# 语言文件
+# 根据您的喜好更改消息
+# 支持MiniMessage格式，请参阅 https://docs.advntr.dev/minimessage/format
+# 包含 <> 的消息表示插件替换的内容，例如 <player>、<arena> 或 <distance>
+# 如果插件更新时我们更新了消息，此文件中的注释将被删除
+# 要恢复这些消息，请备份此文件，删除它，然后重新启动您的服务器，这将创建一个包含所有注释的新语言文件
 
-#  GENERAL PLUGIN MESSAGE PREFIX
-prefix: '<grey>[<aqua>Hunger<dark_aqua>Games<grey>]'
+# 通用插件消息前缀
+prefix: '<grey>[<aqua>饥饿<dark_aqua>游戏<grey>]'
 
-# ARENA DEBUG
+# 竞技场调试
 arena-debug:
-  need-more-spawns: '<red>You still need <aqua><number> <red>more spawns!'
-  min-max-players: '<red>Max players cannot be less than min players, found: <yellow><min><white>/<yellow<max>'
-  broken-debug: '<red>Your arena is marked as broken! use <aqua>/hg debug <arena> <red>to check for errors!'
-  broken-debug-2: '<red>If no errors are found, please use <aqua>/hg toggle <arena><red>!'
-  invalid-lobby: '<red>Your LobbyWall is invalid! Please reset them!'
-  set-lobby: 'Set lobbywall: <aqua>/hg edit <arena> locations lobby_wall'
-  ready-run: '<green>Your HungerGames arena <grey><arena><green> is ready to run!'
-  arena-overlap: "<red>The bounds of arena <white>'<aqua><arena1><white>' <red>overlap the bounds of arena <white>'<aqua><arena2><white>'"
+  need-more-spawns: '<red>您还需要 <aqua><number> <red>个出生点！'
+  min-max-players: '<red>最大玩家数不能小于最小玩家数，已找到: <yellow><min><white>/<yellow><max>'
+  broken-debug: '<red>您的竞技场已被标记为损坏！使用 <aqua>/hg debug <arena> <red>检查错误！'
+  broken-debug-2: '<red>如果未发现错误，请使用 <aqua>/hg toggle <arena><red>！'
+  invalid-lobby: '<red>您的大厅墙无效！请重置它们！'
+  set-lobby: '设置大厅墙: <aqua>/hg edit <arena> locations lobby_wall'
+  ready-run: '<green>您的饥饿游戏竞技场 <grey><arena><green> 已准备就绪！'
+  arena-overlap: "<red>竞技场 <white>'<aqua><arena1><white>' 的边界与竞技场 <white>'<aqua><arena2><white>' 的边界重叠"
 
-# CHEST DROP
+# 箱子掉落
 chest-drop:
-  line: '<gold>*<aqua><strikethrough>                                                                                   <gold>*'
-  dropped-at-location: '"<aqua>| <dark_aqua>A Care-Package was just dropped near: <white><x><dark_aqua>, <white><y><dark_aqua>, <white><z>'
+  line: '<gold>*<aqua><strikethrough><gold>*'
+  dropped-at-location: '"<aqua>| <dark_aqua>空投箱已在附近掉落: <white><x><dark_aqua>, <white><y><dark_aqua>, <white><z>'
 
-# COMMANDS
+# 命令
 command:
-  # Base
+  # 基础命令
   base:
-    invalid-game: "<red>Invalid game <white>'<yellow><arena><white>'"
-    not-in-valid-game: '<red>You are not in a valid game!'
-    no-region: '<red>You are not in a valid HungerGames region!'
-    status: "Status for arena <white>'<aqua><arena><white>' <grey>= <status>"
-  # ChestRefill
+    invalid-game: "<red>无效的游戏 <white>'<yellow><arena><white>'"
+    not-in-valid-game: '<red>您不在有效的游戏中！'
+    no-region: '<red>您不在有效的饥饿游戏区域内！'
+    status: "竞技场 <white>'<aqua><arena><white>' <grey>状态= <status>"
+  # 箱子刷新
   chest-refill:
-    now: '<gold>Chests have now been refilled in <aqua><arena>'
-  # Create
+    now: '<gold>箱子已在 <aqua><arena> 重新填充'
+  # 创建
   create:
-    error-arguments: '<red>Looks like something went wrong with your command arguments'
-    error-already-exists: '<red>Looks like the arena <yellow><arena><red> already exists!'
-    error-session-exists: '<red>Looks like you are already in a creation session!'
-    divisible-1: '<red>Time-in-seconds must be divisible by 30!'
-    divisible-2: '<red>Ex: 90 is divisible by 30'
-    minmax: '<red>min-players cannot be more than max-players!'
-    session-stick-name: '<aqua><!italic>HungerGames Selection Stick'
-    session-start: '<aqua>You are now ready to create your area, click the first corner of your area with the stick.'
-    session-next-corner: '<green>First corner selected! <aqua>Now select your second corner.'
-    session-select-spawns: '<green>Second corner selected! <aqua>Now start selecting your spawn locations. Simply right click a block where a player will spawn above!'
-    # <selected> = Will be replaced with how many spawns you have selected so far
-    # <left> = Will be replaced with how many more spawns you must select
-    session-select-spawns-next: 'Selected <selected>, only <left> more to go.'
-    session-error-too-small: '<red>Too small, arena must be at least 5x5x5, please re-select second corner.'
-    session-error-overlap: "<red>This area overlaps another arena."
-    session-select-sign: '<green>Spawns selected! <aqua>Now select your lobby sign. Make sure you have 3 wall signs in a row, and click on the far left one.'
-    session-sign-invalid: '<red>That is not a sign silly!'
-    session-already-in-arena: '<red>This location is already within an arena!'
-    session-done: "<green>You're all done, your arena is ready to go!"
-  # Delete
+    error-arguments: '<red>您的命令参数似乎有问题'
+    error-already-exists: '<red>竞技场 <yellow><arena><red> 已存在！'
+    error-session-exists: '<red>您已经处于创建会话中！'
+    divisible-1: '<red>时间(秒)必须能被30整除！'
+    divisible-2: '<red>例如: 90可以被30整除'
+    minmax: '<red>最小玩家数不能大于最大玩家数！'
+    session-stick-name: '<aqua><!italic>饥饿游戏选择棒'
+    session-start: '<aqua>您现在可以创建区域了，用选择棒点击您区域的第一个角落'
+    session-next-corner: '<green>已选择第一个角落！<aqua>现在选择第二个角落'
+    session-select-spawns: '<green>第二个角落已选择！<aqua>现在开始选择出生点位置只需右键点击玩家将在上方出生的方块'
+    session-select-spawns-next: '已选择 <selected> 个，还需要 <left> 个'
+    session-error-too-small: '<red>太小了，竞技场必须至少5x5x5，请重新选择第二个角落'
+    session-error-overlap: "<red>此区域与另一个竞技场重叠"
+    session-select-sign: '<green>出生点已选择！<aqua>现在选择大厅告示牌确保您有3个连续的墙告示牌，点击最左边的一个'
+    session-sign-invalid: '<red>这不是告示牌！'
+    session-already-in-arena: '<red>此位置已在竞技场内！'
+    session-done: "<green>您已完成，您的竞技场已准备就绪！"
+  # 删除
   delete:
-    attempt: '<green>Attempting to delete <arena>!'
-    stopping: '<grey>- <red>Game running! <yellow>Stopping..'
-    kicking: '<grey>- <red>Players detected! <yellow>Kicking..'
-    deleted: '<green>Successfully deleted HungerGames arena <aqua><arena><green>!'
-    failed: '<red>Failed to delete arena!'
-    rollback: '<red>The game is currently rolling back and cannot be deleted right now!'
-    no-exist: "<red>The arena <white>'<yellow><arena><white>'<red> does not exist!"
-
-  # Edit
+    attempt: '<green>正在尝试删除 <arena>!'
+    stopping: '<grey>- <red>游戏正在运行！<yellow>正在停止..'
+    kicking: '<grey>- <red>检测到玩家！<yellow>正在踢出..'
+    deleted: '<green>成功删除饥饿游戏竞技场 <aqua><arena><green>!'
+    failed: '<red>删除竞技场失败！'
+    rollback: '<red>游戏当前正在回滚，无法立即删除！'
+    no-exist: "<red>竞技场 <white>'<yellow><arena><white>'<red> 不存在！"
+  # 编辑
   edit:
-    # ChestRefill
-    chest-refill-time-set: '<gold>Chest refill time for <aqua><arena> <gold>has been set to <aqua><sec> seconds'
-    chest-refill-repeat-set: '<gold>Chest refill repeat for <aqua><arena> <gold>has been set to <aqua><sec> seconds'
-    # LobbyWall
-    lobbywall-set: '<green>The LobbyWallSign has been set!'
-    lobbywall-incorrect: '<red>These signs are not in correct format!'
-    lobbywall-format: '<grey>format: <gold>[sign] <red>[sign] [sign]'
-  # Exit
+    chest-refill-time-set: '<gold>竞技场 <aqua><arena> <gold>的箱子刷新时间已设置为 <aqua><sec> 秒'
+    chest-refill-repeat-set: '<gold>竞技场 <aqua><arena> <gold>的箱子刷新间隔已设置为 <aqua><sec> 秒'
+    lobbywall-set: '<green>大厅墙告示牌已设置！'
+    lobbywall-incorrect: '<red>这些告示牌格式不正确！'
+    lobbywall-format: '<grey>格式: <gold>[sign] <red>[sign] [sign]'
+  # 退出
   exit:
-    set-global: '<gold>Global exit has been set to your location!'
-    set-all: 'Exit for all arenas has been set to your location!'
-    set-arena: '<gold>Exit for arena <arena> has been set to your location!'
+    set-global: '<gold>全局退出点已设置到您的位置！'
+    set-all: '所有竞技场的退出点已设置到您的位置！'
+    set-arena: '<gold>竞技场 <arena> 的退出点已设置到您的位置！'
+  # 强制开始
   force-start:
-    cannot-start: '<red>Cannot start this game right now.'
-    game-already-running: '<red>The game is already running.'
-    no-players: '<red>There are no players to start this game.'
-    starting: '<aqua><arena><grey> is now <green>starting!'
-  # Join
+    cannot-start: '<red>当前无法开始游戏'
+    game-already-running: '<red>游戏已经在运行中'
+    no-players: '<red>没有玩家可以开始游戏'
+    starting: '<aqua><arena><grey> 正在 <green>开始!'
+  # 加入
   join:
-    already-in-game: '<red>You are already in a game!'
-    already-in-game-other: '<red><player> is already in a game!'
-    no-money: '<red>You do not have enough money to join this game. Cost: <aqua>$<cost>'
-  # Kit
+    already-in-game: '<red>您已经在游戏中！'
+    already-in-game-other: '<red><player> 已经在游戏中！'
+    no-money: '<red>您没有足够的钱加入游戏费用: <aqua>$<cost>'
+  # 装备
   kit:
-    game-running: '<red>You cannot get a kit at this stage in the game!'
-    invalid-name: '<red>Invalid kit name.'
-    no-permission: '<red>You do not have permission to use this kit!'
-  # Leave
+    game-running: '<red>您不能在游戏当前阶段获取装备！'
+    invalid-name: '<red>无效的装备名称'
+    no-permission: '<red>您没有权限使用此装备！'
+  # 离开
   leave:
-    left: '<grey>You left <aqua><arena><grey>!'
-    refund: '<grey>You got a refund of <aqua>$<cost> <grey>for leaving the game before it started.'
-  # List
+    left: '<grey>您已离开 <aqua><arena><grey>!'
+    refund: '<grey>您获得了 <aqua>$<cost> <grey>的退款，因为您在游戏开始前离开了'
+  # 列表
   list:
-    players: "<gold>Players in arena <white>'<aqua><arena><white>': <aqua><players>"
+    players: "<gold>竞技场 <white>'<aqua><arena><white>' 中的玩家: <aqua><players>"
     players-delimiter: '<white>, <aqua>'
+  # 会话
   session:
-    no-session: '<red>You do not have a current session.'
-    ended: 'Your current session has ended.'
-  # Team
+    no-session: '<red>您当前没有会话'
+    ended: '您的当前会话已结束'
+  # 队伍
   team:
-    player-not-available: '<aqua><player> <red>is not available!'
-    only-leader: '<red>Only the leader can invite other players!'
-    on-team: '<aqua><player> <gold>is already on a team!'
-    max: '<red>You have hit the max team limit!'
-    invited: '<aqua><player> <gold>Has been invited!'
-    wrong: '<red>Wrong Usage: <gold>/hg team invite <aqua><name>'
-    no-pending: '<red>You have no pending invites...'
-    joined: '<aqua><player> <gold>Just joined your team!'
-    deny: '<aqua><player> <gold>has denied your invitation!'
-    no-team: '<red>You are not on a team!'
-    not-on-team: '<aqua><player> <red>is not on your team!'
-    tp: '<gold>Teleporting to <aqua><player>'
-    self: '<red>You can not invite yourself to your own team.'
-    created: "<green>Created team: <aqua><name>"
-    already-exists: "<red>Team <aqua><name> <red>already exists."
-    already-have: "<red>You have already created a team: <aqua><name>"
-    none: "<red>You do not have a team, create one first with command <aqua>'/hg team create <name>'"
-  # Toggle
+    player-not-available: '<aqua><player> <red>不可用！'
+    only-leader: '<red>只有队长可以邀请其他玩家！'
+    on-team: '<aqua><player> <gold>已经在队伍中！'
+    max: '<red>您已达到队伍人数上限！'
+    invited: '<aqua><player> <gold>已被邀请！'
+    wrong: '<red>错误用法: <gold>/hg team invite <aqua><name>'
+    no-pending: '<red>您没有待处理的邀请...'
+    joined: '<aqua><player> <gold>已加入您的队伍！'
+    deny: '<aqua><player> <gold>拒绝了您的邀请！'
+    no-team: '<red>您不在队伍中！'
+    not-on-team: '<aqua><player> <red>不在您的队伍中！'
+    tp: '<gold>正在传送到 <aqua><player>'
+    self: '<red>您不能邀请自己加入自己的队伍'
+    created: "<green>已创建队伍: <aqua><name>"
+    already-exists: "<red>队伍 <aqua><name> <red>已存在"
+    already-have: "<red>您已经创建了队伍: <aqua><name>"
+    none: "<red>您没有队伍，请先使用命令 <aqua>'/hg team create <name>' 创建一个"
+  # 切换
   toggle:
-    unlocked: '<aqua><arena><gold> is now <green>UNLOCKED!'
-    locked: '<dark_aqua><arena><aqua> is now <dark_red>LOCKED<aqua>!'
-    running: '<aqua><arena><red> is running and cannot be toggled!'
+    unlocked: '<aqua><arena><gold> 现在 <green>解锁!'
+    locked: '<dark_aqua><arena><aqua> 现在 <dark_red>锁定<aqua>!'
+    running: '<aqua><arena><red> 正在运行，无法切换状态！'
 
-# DEATH MESSAGES
+# 死亡消息
 death-messages:
-  # Prefix used when a player dies in an arena
-  prefix: '<grey>[<dark_aqua>HungerGames Fallen<grey>]'
-  # Fallback message when no other specific message is provided
-  other: '<player> was killed by <cause>'
-  # Death messages for different entity types
-  # These are used when a player directly dies by another entity
+  prefix: '<grey>[<dark_aqua>饥饿游戏阵亡<grey>]'
+  other: '<player> 被 <cause> 杀死'
   entity-types:
-    minecraft:player: '<player> was killed by <killer> using <aqua><weapon>!'
-    minecraft:stray: '<player> was shot in the face by a Stray!'
-    minecraft:drowned: '<player> was ripped apart by a Drowned!'
-    minecraft:spider: '<player> was eaten alive by a Spider!'
-    minecraft:skeleton: '<player> was shot in the face by a Skeleton'
-    minecraft:zombie: '<player> was ripped to bits by a Zombie!'
-  # Death messages for different damage types
-  # These are used when a player dies from a natural cause
+    minecraft:player: '<player> 被 <killer> 使用 <aqua><weapon> 杀死！'
+    minecraft:stray: '<player> 被流浪者射中脸部！'
+    minecraft:drowned: '<player> 被溺尸撕成碎片！'
+    minecraft:spider: '<player> 被蜘蛛活活吃掉！'
+    minecraft:skeleton: '<player> 被骷髅射中脸部'
+    minecraft:zombie: '<player> 被僵尸撕成碎片！'
   damage-types:
-    minecraft:arrow: '<player> was shot by an arrow.'
-    minecraft:cactus: '<player> died trying to fight a cactus'
-    minecraft:campfire: '<player> died while trying to cook on a campfire'
-    minecraft:drown: '<player> drowned'
-    minecraft:explosion: '<player> was blown to bits!'
-    minecraft:fall: '<player> fell to their death!'
-    minecraft:falling_anvil: '<player> was crushed by an anvil'
-    minecraft:falling_block: '<player> was smashed by a block!'
-    minecraft:falling_stalactite: '<player> was impaled by a stalactite'
-    minecraft:fireball: '<player> was struck by a fireball'
-    minecraft:fireworks: '<player> exploded while watching the fireworks'
-    minecraft:fly_into_wall: '<player> flew into a wall, ouchie!'
-    minecraft:freeze: '<player> froze to death'
-    minecraft:generic: '<player> died in a generic way'
-    minecraft:hot_floor: '<player> died while walking on a hot floor'
-    minecraft:in_fire: '<player> was burned alive!'
-    minecraft:in_wall: '<player> got stuck in a wall'
-    minecraft:lava: '<player> fell into a pit of lava!'
-    minecraft:lightning_bolt: '<player> was struck by lightning'
-    minecraft:mace_smash: '<player> was smashed by a mace'
-    minecraft:magic: '<player> was destroyed by magic!'
-    minecraft:mob_projectile: '<player> got hit by a projectile!'
-    minecraft:on_fire: '<player> caught on fire'
-    minecraft:out_of_world: '<player> fell out of the world'
-    minecraft:outside_border: '<player> died outside the game border'
-    minecraft:sonic_boom: '<player> went kaboom'
-    minecraft:spit: '<player> was spit at too hard'
-    minecraft:stalagmite: '<player> fell onto a stalagmite'
-    minecraft:starve: '<player> starved to death'
-    minecraft:sting: '<player> was stung to death'
-    minecraft:sweet_berry_bush: '<player> died while picking some berries'
-    minecraft:thorns: '<player> died by magical thorns'
-    minecraft:thrown: '<player> was thrown to their death'
-    minecraft:trident: '<player> was impaled by a Trident!'
-    minecraft:wind_charge: '<player> was blown away by a wind charge'
+    minecraft:arrow: '<player> 被箭射中'
+    minecraft:cactus: '<player> 试图与仙人掌战斗时死亡'
+    minecraft:campfire: '<player> 在尝试烹饪时死亡'
+    minecraft:drown: '<player> 溺水了'
+    minecraft:explosion: '<player> 被炸成碎片！'
+    minecraft:fall: '<player> 摔死了！'
+    minecraft:falling_anvil: '<player> 被铁砧压碎'
+    minecraft:falling_block: '<player> 被方块砸中！'
+    minecraft:falling_stalactite: '<player> 被钟乳石刺穿'
+    minecraft:fireball: '<player> 被火球击中'
+    minecraft:fireworks: '<player> 在看烟花时爆炸'
+    minecraft:fly_into_wall: '<player> 撞到了墙上，好痛！'
+    minecraft:freeze: '<player> 冻死了'
+    minecraft:generic: '<player> 以普通方式死亡'
+    minecraft:hot_floor: '<player> 在热地板上行走时死亡'
+    minecraft:in_fire: '<player> 被活活烧死！'
+    minecraft:in_wall: '<player> 卡在墙里'
+    minecraft:lava: '<player> 掉进了熔岩坑！'
+    minecraft:lightning_bolt: '<player> 被闪电击中'
+    minecraft:mace_smash: '<player> 被钉锤砸中'
+    minecraft:magic: '<player> 被魔法摧毁！'
+    minecraft:mob_projectile: '<player> 被投射物击中！'
+    minecraft:on_fire: '<player> 着火了'
+    minecraft:out_of_world: '<player> 掉出了世界'
+    minecraft:outside_border: '<player> 在游戏边界外死亡'
+    minecraft:sonic_boom: '<player> 爆炸了'
+    minecraft:spit: '<player> 被吐得太狠'
+    minecraft:stalagmite: '<player> 掉到了石笋上'
+    minecraft:starve: '<player> 饿死了'
+    minecraft:sting: '<player> 被刺死'
+    minecraft:sweet_berry_bush: '<player> 在摘浆果时死亡'
+    minecraft:thorns: '<player> 被魔法荆棘杀死'
+    minecraft:thrown: '<player> 被扔死'
+    minecraft:trident: '<player> 被三叉戟刺穿！'
+    minecraft:wind_charge: '<player> 被风弹吹走'
 
-# GAME
-##  <arena> will be replaced with the name of the arena
+# 游戏
 game:
-  waiting-join: "<aqua><player> <grey>joined arena <white>'<aqua><arena><white>'"
-  #  <amount> will be replaced with amount of players left to start a game
-  waiting-players-to-start: '<aqua><amount> <gold>players to start!'
-  joined-waiting-to-teleport: "You have joined arena <white>'<aqua><arena><white>'<grey>! You will teleport when the game is ready to go."
+  waiting-join: "<aqua><player> <grey>加入了竞技场 <white>'<aqua><arena><white>'"
+  waiting-players-to-start: '<aqua><amount> <gold>名玩家即可开始游戏！'
+  joined-waiting-to-teleport: "您已加入竞技场 <white>'<aqua><arena><white>'<grey>! 游戏准备好后您将被传送"
+  running: "<red>游戏 <white>'<aqua><arena><white>' <red>已在运行，无法加入！"
+  join: "使用: <aqua>/hg join <arena><grey> 加入！"
+  countdown-started: "竞技场 <white>'<aqua><arena><white>' <grey>将在 <green>30秒<grey>后开始！"
+  countdown-timer: '游戏将在 <timer> 秒后开始..'
+  almost-over: '<red>游戏即将结束，战斗至死吧！'
+  ending-min-sec: '<green>游戏将在 <minutes> 分钟 <seconds> 秒后结束！'
+  ending-min: '<green>游戏将在 <minutes> 分钟后结束！'
+  ending-sec: '<green>游戏将在 <seconds> 秒后结束！'
+  border-closing: '<yellow>边界正在收缩，您有 <seconds> 秒时间到达竞技场中心！'
+  chests-refill: '<green>箱子已重新填充'
+  full: "<white>'<aqua><arena><white>' <red>当前已满！"
+  player-joined-game: '<aqua><player> <green>已加入游戏'
+  player-left-game: '<aqua><player> <red>已离开游戏'
+  bossbar-title: '<gold>游戏结束倒计时: <aqua><min> <grey>分 <aqua><sec> <grey>秒'
+  player-won: '<aqua><winner> <gold>在竞技场 <aqua><arena><grey> 赢得了饥饿游戏！'
+  arena-not-ready: '<red>此竞技场尚未准备好！请等待后再加入！'
+  arena-spectate: '<grey>您可以通过 <aqua>/hg spectate <arena> 观战此竞技场'
+  roam-game-started: '<dark_red>[]---------[ <gold>游戏已开始！ <dark_red>]---------[]'
+  roam-time: ' <yellow> 您有 <roam> 秒的无敌时间！'
+  roam-finished: '<red>无敌时间结束，PVP现已开启！'
+  winning-amount: '<grey>您获得了 <aqua>$<amount> <grey>作为赢得 <dark_aqua>饥饿<aqua>游戏的奖励！'
 
-  running: "<red>The game <white>'<aqua><arena><white>' <red>is already running and cannot be joined!"
-  join: "Use: <aqua>/hg join <arena><grey> to join!"
-  countdown-started: "Arena <white>'<aqua><arena><white>' <grey>will begin in <green>30 seconds<grey>!"
-  countdown-timer: 'The game will start in <timer> seconds..'
-  almost-over: '<red>The game is almost over, fight to the death!'
-  ending-min-sec: '<green>The game is ending in <minutes> minute(s), and <seconds> second(s)!'
-  ending-min: '<green>The game is ending in <minutes> minute(s)!'
-  ending-sec: '<green>the game is ending in <seconds> second(s)!'
-  border-closing: '<yellow>The border is coming, you have <seconds> seconds to get to the center of the arena!'
-  chests-refill: '<green>Chests have been refilled'
-  full: "<white>'<aqua><arena><white>' <red>is currently full!"
-  player-joined-game: '<aqua><player> <green>has joined the game'
-  player-left-game: '<aqua><player> <red>has left the game'
-  # <min>/<sec> will be replaced with the remaining minutes and seconds in a game
-  bossbar-title: '<gold>Game Ends In: <aqua><min> <grey>min <aqua><sec> <grey>sec'
-  # <winner> will be replaced with name of winner
-  player-won: '<aqua><winner> <gold>won HungerGames at arena <aqua><arena><grey>!'
-  arena-not-ready: '<red>This arena is not ready! Please wait before joining!'
-  arena-spectate: '<grey>You can spectate this arena by running <aqua>/hg spectate <arena>'
-  roam-game-started: '<dark_red>[]---------[ <gold>The game has started! <dark_red>]---------[]'
-  #  <roam> will be replaced with the time the players can roam for
-  roam-time: ' <yellow> You have <roam> seconds to roam without taking damage!'
-  roam-finished: '<red>Free-Roam is over, PVP is now enabled!'
-  #  <amount> will be replaced with the amount the player will receive on win
-  winning-amount: '<grey>You received <aqua>$<amount> <grey>for winning <dark_aqua>Hunger<aqua>Games!'
-
-# ITEM
+# 物品
 item:
-  # COMPASS
-  # <player> will be replaced with the name of the nearest player
-  # <distance> will be replaced with the distance of the nearest player
   compass:
-    nearest-player: '<grey>Nearest Player: <aqua><player> <grey>Distance: <green><distance>'
-
-  # TRACKING STICK
+    nearest-player: '<grey>最近玩家: <aqua><player> <grey>距离: <green><distance>'
   tracking-stick:
-    name: 'Tracking Stick'
+    name: '追踪棒'
     lore:
-      - '<yellow><!italic>Click your stick'
-      - '<yellow><!italic>to track nearby players'
-    nearest: '"<aqua><player> <yellow>is <aqua><range> <yellow>blocks away from you: <aqua><location>"'
-    no-near: '<red>Could not locate any nearby players!'
+      - '<yellow><!italic>点击您的棒子'
+      - '<yellow><!italic>追踪附近玩家'
+    nearest: '"<aqua><player> <yellow>距离您 <aqua><range> <yellow>格: <aqua><location>"'
+    no-near: '<red>未找到附近玩家！'
     bar: '<green>[]------------------------------------------[]'
-    new1: '<green> |<gold>   You have been given a player-tracking stick! <green> |'
-    new2: '<green> |<gold>   Swing the stick to track players!                <green> |'
+    new1: '<green> |<gold>   您获得了玩家追踪棒！ <green> |'
+    new2: '<green> |<gold>   挥动棒子来追踪玩家！                <green> |'
 
-# KIT MESSAGES
+# 装备消息
 kits:
-  join-header: '<red>><grey>----------[<white>Welcome to Hunger<white>Games<grey>]<grey>----------<red><'
-  join-msg: '<grey>           - <dark_aqua>Pick a kit using <aqua>/hg kit <grey><<reset>name<grey>>'
-  join-available: '<dark_aqua>  Available Kits:<aqua>'
-  join-kits-command: '<grey>  You can also run <aqua>/hg kits<grey> to open the kits GUI.'
+  join-header: '<red>><grey>----------[<white>欢迎来到饥饿<white>游戏<grey>]<grey>----------<red><'
+  join-msg: '<grey>           - <dark_aqua>使用 <aqua>/hg kit <grey><<reset>名称<grey>> 选择装备'
+  join-available: '<dark_aqua>  可用装备:<aqua>'
+  join-kits-command: '<grey>  您也可以运行 <aqua>/hg kits<grey> 打开装备GUI'
   join-footer: '<red>><grey>------------------------------------------<red><'
-  doesnt-exist: '<red>Does not exist'
-  give-default: 'You have been given the default kit'
-
-  # Main kits GUI
+  doesnt-exist: '<red>不存在'
+  give-default: '您已获得默认装备'
   kits-gui:
-    title: '<green>Available Kits'
-
-  # GUI for individual kits
+    title: '<green>可用装备'
   kit-gui:
-    title: '<grey>Kit: <aqua><name>'
-    exit: '<red>Exit'
-    apply: '<green>Apply'
-    helmet-none: '<red>No Helmet'
-    chestplate-none: '<red>No Chestplate'
-    leggings-none: '<red>No Leggings'
-    boots-none: '<red>No Boots'
-    potion-effects: '<aqua><!italic>Potion Effects'
-    potion-effect-none: '<red>No potion effects!'
-    # <type> will be used as a translation key to translate to the client's language
+    title: '<grey>装备: <aqua><name>'
+    exit: '<red>退出'
+    apply: '<green>应用'
+    helmet-none: '<red>无头盔'
+    chestplate-none: '<red>无胸甲'
+    leggings-none: '<red>无护腿'
+    boots-none: '<red>无靴子'
+    potion-effects: '<aqua><!italic>药水效果'
+    potion-effect-none: '<red>无药水效果！'
     potion-effect-lore: '<!italic>- <yellow><lang:<type>>'
-    pre-select: "You have preselected kit <white>'<aqua><kit><white>'<grey> and will be given the items when you enter the arena."
+    pre-select: "您已预选装备 <white>'<aqua><kit><white>'<grey>，进入竞技场时将获得这些物品"
 
-# LEADERBOARD
+# 排行榜
 leaderboard:
   blank-space: ''
   combined-separator: ' : '
   missing-player: '<none>'
 
-# LISTENER
+# 监听器
 listener:
-  not-running: '<red>The game is not running!'
-  no-edit-block: '<red>You cannot edit this block type!'
-  no-interact: '<red>You cannot interact until the game has started!'
-  sign-click-hand: '<red>Click the sign with your hand!'
-  command-handler-no-command: '<red>You can not use non-HungerGames commands while in-game!'
-  command-handler-playing: '<red>This player is currently playing <aqua>HungerGames!'
+  not-running: '<red>游戏未运行！'
+  no-edit-block: '<red>您不能编辑此类型的方块！'
+  no-interact: '<red>游戏开始前您不能交互！'
+  sign-click-hand: '<red>请用手点击告示牌！'
+  command-handler-no-command: '<red>游戏中您不能使用非饥饿游戏命令！'
+  command-handler-playing: '<red>此玩家正在玩 <aqua>饥饿游戏！'
 
-# LOBBY SIGNS
-# Each sign MUST have 4 lines or else they'll error
-# Placeholders:
-# - <arena> = Will be replaced with arena name
-# - <cost> = Will be replaced with arena cost (if arena cost <= 0, this line will be omitted)
-# - <status> = Will be replaced with arena status
-# - <alive> = Will be replaced with amount of alive players in game
-# - <max_players> = Will be replaced with max amount of players of arena
+# 大厅告示牌
 lobby-signs:
   sign-1:
-    - '<dark_blue>Hunger Games'
+    - '<dark_blue>饥饿游戏'
     - '<aqua><arena>'
-    - '<black>Click To Join'
-    - 'Cost $<aqua><cost>'
+    - '<black>点击加入'
+    - '费用 $<aqua><cost>'
   sign-2:
-    - '<dark_blue>Game Status'
+    - '<dark_blue>游戏状态'
     - '<status>'
     - ''
     - ''
   sign-3:
-    - '<dark_blue>Alive'
+    - '<dark_blue>存活'
     - '<click:run_command:/hg list <arena>><alive>/<max_players>'
     - ''
     - ''
 
-# SPECTATOR
+# 观战
 spectate:
   gui:
-    title: '<grey>Spectators of <aqua><arena>'
+    title: '<grey>观战者: <aqua><arena>'
   compass:
-    name: '<#0EE7CD>Spectator Compass'
+    name: '<#0EE7CD>观战指南针'
     head-lore:
-      - '<!italic><grey>Click to teleport to player'
-  start-title: 'You are now spectating!'
+      - '<!italic><grey>点击传送到玩家'
+  start-title: '您现在正在观战！'
 
-# SCOREBOARD
+# 记分板
 scoreboard:
   sidebar:
-    title: '<gold>HungerGames'
-    arena: "<green>Arena: <aqua>"
-    players-alive: '<light_purple>Tributes:'
-    # <num> will be replaced by the number of remaining players in the game
-    players-alive-num: '<yellow><num> alive'
+    title: '<gold>饥饿游戏'
+    arena: "<green>竞技场: <aqua>"
+    players-alive: '<light_purple>参赛者:'
+    players-alive-num: '<yellow><num> 存活'
   show-health:
-    # This is the name that will show for the health objective
-    name: '<aqua>Health'
+    name: '<aqua>生命值'
 
-# STATUSES
+# 状态
 status:
   game-status:
-    ready: '<dark_purple>Ready'
-    waiting: '<aqua>Waiting...'
-    countdown: '<aqua>Starting...'
-    free-roam: '<green>Running'
-    running: '<green>Running'
-    stopped: '<dark_red>Stopped'
-    rollback: '<red>Restoring...'
-    broken: '<dark_red>BROKEN'
-    not-ready: '<dark_blue>NotReady'
+    ready: '<dark_purple>准备就绪'
+    waiting: '<aqua>等待中...'
+    countdown: '<aqua>即将开始...'
+    free-roam: '<green>运行中'
+    running: '<green>运行中'
+    stopped: '<dark_red>已停止'
+    rollback: '<red>恢复中...'
+    broken: '<dark_red>损坏'
+    not-ready: '<dark_blue>未就绪'
   player-status:
-    in-game: 'In Game'
-    spectator: 'Spectator'
-    not-in-game: 'Not In Game'
+    in-game: '游戏中'
+    spectator: '观战中'
+    not-in-game: '未在游戏中'
 
-# TEAMS
+# 队伍
 team:
-  invite-1: '<gold>*<aqua><strikethrough>                                                                             <gold>*'
-  invite-2: '| <white><inviter> <dark_aqua>just invited you to a <white>Team<dark_aqua>!'
-  invite-3: '| <dark_aqua>Type <white>/hg team accept <dark_aqua>To join!'
-  invite-4: '<gold>*<aqua><strikethrough>                                                                             <gold>*'
-  joined: '<dark_aqua>You successfully joined this team!'
-  # <name> will be replaced with team name
+  invite-1: '<gold>*<aqua><strikethrough><gold>*'
+  invite-2: '| <white><inviter> <dark_aqua>邀请您加入 <white>队伍<dark_aqua>!'
+  invite-3: '| <dark_aqua>输入 <white>/hg team accept <dark_aqua>加入!'
+  invite-4: '<gold>*<aqua><strikethrough><gold>*'
+  joined: '<dark_aqua>您已成功加入队伍!'
   prefix: "<grey>[<green><name><grey>]"
   suffix: ""

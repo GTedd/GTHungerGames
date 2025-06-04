@@ -99,10 +99,10 @@ public class KitGUI implements InventoryHolder {
         if (Util.RUNNING_1_21_5) {
             potion.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay()
                 .hideTooltip(true));
-        } else {
+        }/* else {
             //noinspection deprecation
             potion.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
-        }
+        }*/
 
         List<PotionEffect> potionEffects = kitEntry.getPotionEffects();
         List<Component> lore = new ArrayList<>();

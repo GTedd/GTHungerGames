@@ -12,7 +12,7 @@ import org.bukkit.block.BlockState;
 import java.util.Iterator;
 
 /**
- * Rollback task for resetting blocks after a game finishes
+ * 游戏结束后重置区块的回滚任务
  */
 public class RollbackTask implements Runnable {
 

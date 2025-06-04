@@ -1,5 +1,5 @@
-# ARENA GAMES LEADERBOARD
-# This file saves stats from arenas
+# 竞技场游戏排行榜
+# 此文件保存竞技场的统计数据
 
 wins: {}
 kills: {}

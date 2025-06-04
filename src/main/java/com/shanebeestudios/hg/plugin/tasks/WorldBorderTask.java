@@ -37,7 +37,7 @@ public class WorldBorderTask implements Runnable {
 
     @Override
     public void run() {
-        // Since it's a virtual world border we need to damage manually
+        // 因为这是一个虚拟世界的边界，我们需要手动破坏
         WorldBorder worldBorder = this.gameBorderData.getWorldBorder();
         this.gamePlayerData.getPlayers().forEach(player -> {
             if (!worldBorder.isInside(player.getLocation())) {

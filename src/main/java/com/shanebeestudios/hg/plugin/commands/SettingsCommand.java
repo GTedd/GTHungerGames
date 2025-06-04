@@ -29,29 +29,29 @@ public class SettingsCommand extends SubCommand {
 
     private Argument<?> debug() {
         return LiteralArgument.literal("debug")
-            .then(new StringArgument("enable")
+            .then(new StringArgument("开关")
                 .setOptional(true)
                 .includeSuggestions(ArgumentSuggestions.stringsWithTooltips(
                     List.of(
-                        BukkitStringTooltip.ofString("enable", "Enable the debug setting"),
-                        BukkitStringTooltip.ofString("disable", "Disable the debug setting"))))
+                        BukkitStringTooltip.ofString("enable", "启用调试设置"),
+                        BukkitStringTooltip.ofString("disable", "禁用调试设置"))))
                 .executes(info -> {
                     CommandSender sender = info.sender();
-                    Optional<String> enable = info.args().getOptionalByClass("enable", String.class);
+                    Optional<String> enable = info.args().getOptionalByClass("开关", String.class);
                     if (enable.isPresent()) {
                         String s = enable.get();
                         if (s.equalsIgnoreCase("enable")) {
                             Config.SETTINGS_DEBUG = true;
-                            Util.sendPrefixedMessage(sender, "The debug setting has been <green>enabled<grey>!");
+                            Util.sendPrefixedMessage(sender, "调试设置已<green>启用<grey>！");
                         } else if (s.equalsIgnoreCase("disable")) {
                             Config.SETTINGS_DEBUG = false;
-                            Util.sendPrefixedMessage(sender, "The debug setting has been <red>disabled<grey>!");
+                            Util.sendPrefixedMessage(sender, "调试设置已<red>禁用<grey>！");
                         } else {
-                            Util.sendPrefixedMessage(sender, "Invalid option '%s'", s);
+                            Util.sendPrefixedMessage(sender, "无效选项 '%s'", s);
                         }
                     } else {
-                        String setting = Config.SETTINGS_DEBUG ? "<green>enabled" : "<red>disabled";
-                        Util.sendPrefixedMessage(sender, "The debug setting is %s", setting);
+                        String setting = Config.SETTINGS_DEBUG ? "<green>已启用" : "<red>已禁用";
+                        Util.sendPrefixedMessage(sender, "调试设置当前状态：%s", setting);
                     }
                 }));
     }

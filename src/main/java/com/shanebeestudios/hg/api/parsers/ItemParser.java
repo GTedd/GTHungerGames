@@ -156,9 +156,9 @@ public class ItemParser {
         if (config.contains("dyed_color")) {
             int color = config.getInt("dyed_color");
             itemStack.setData(DataComponentTypes.DYED_COLOR, DyedItemColor.dyedItemColor().color(Color.fromRGB(color)));
-            if (!Util.RUNNING_1_21_5) {
+/*            if (!Util.RUNNING_1_21_5) {
                 itemStack.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
-            }
+            }*/
         }
 
         // HIDDEN COMPONENTS

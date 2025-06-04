@@ -43,22 +43,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <b>Main class for HungerGames</b>
+ * <b>饥饿游戏插件主类</b>
+ * <p>负责插件生命周期管理和核心功能初始化</p>
  */
 public class HungerGames extends JavaPlugin {
 
-    //Instances
+    // 插件单例实例
     private static HungerGames PLUGIN_INSTANCE;
 
     private Leaderboard leaderboard;
     private Metrics metrics;
 
-    // Configs
+    // 配置文件实例
     private Config config;
     private Language lang;
     private ArenaConfig arenaConfig;
 
-    // Managers
+    // 管理器实例
     private ItemManager itemManager;
     private PlayerManager playerManager;
     private KitManager kitManager;
@@ -69,7 +70,7 @@ public class HungerGames extends JavaPlugin {
     private io.lumine.mythic.api.mobs.MobManager mythicMobManager;
 
     /**
-     * @hidden
+     * 插件加载时执行
      */
     @Override
     public void onLoad() {
@@ -80,15 +81,18 @@ public class HungerGames extends JavaPlugin {
                 .silentLogs(true)
                 .skipReloadDatapacks(true));
         } catch (UnsupportedVersionException ignore) {
-            Util.log("CommandAPI does not support this version of Minecraft, will update soon.");
+            Util.log("CommandAPI 不支持此版本的 Minecraft，请等待更新");
         }
     }
 
+    /**
+     * 插件启用时执行
+     */
     @Override
     public void onEnable() {
         if (!Util.isRunningMinecraft(1, 21, 4)) {
-            Util.warning("HungerGames does not support your server version!");
-            Util.warning("Only versions 1.21.4+ are supported");
+            Util.warning("饥饿游戏不支持您的服务器版本！");
+            Util.warning("仅支持 1.21.4 及以上版本");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
@@ -97,6 +101,10 @@ public class HungerGames extends JavaPlugin {
         loadPlugin(true);
     }
 
+    /**
+     * 加载插件核心功能
+     * @param load 是否为初次加载
+     */
     @SuppressWarnings("deprecation")
     public void loadPlugin(boolean load) {
         long start = System.currentTimeMillis();
@@ -104,12 +112,12 @@ public class HungerGames extends JavaPlugin {
 
         this.config = new Config(this);
 
-        //MythicMob check
+        // 检查MythicMobs插件
         if (Bukkit.getPluginManager().getPlugin("MythicMobs") != null) {
             this.mythicMobManager = MythicProvider.get().getMobManager();
-            Util.log("<grey>MythicMobs found, MythicMobs hook <green>enabled");
+            Util.log("<grey>检测到MythicMobs，MythicMobs挂钩 <green>已启用");
         } else {
-            Util.log("<grey>MythicMobs not found, MythicMobs hook <red>disabled");
+            Util.log("<grey>未检测到MythicMobs，MythicMobs挂钩 <red>已禁用");
         }
         this.lang = new Language(this);
         this.itemManager = new ItemManager(this);
@@ -122,31 +130,38 @@ public class HungerGames extends JavaPlugin {
         this.leaderboard = new Leaderboard(this);
         this.killManager = new KillManager(this);
 
-        //PAPI check
+        // 检查PlaceholderAPI插件
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new Placeholders(this).register();
-            Util.log("<grey>PAPI found, Placeholders have been <green>enabled");
+            Util.log("<grey>检测到PlaceholderAPI，占位符 <green>已启用");
         } else {
-            Util.log("<grey>PAPI not found, Placeholders have been <red>disabled");
+            Util.log("<grey>未检测到PlaceholderAPI，占位符 <red>已禁用");
         }
 
         loadCommands();
         loadListeners();
 
         if (this.getDescription().getVersion().contains("beta")) {
-            Util.warning("YOU ARE RUNNING A BETA VERSION, please use with caution");
-            Util.warning("Report any issues to: <aqua>https://github.com/ShaneBeeStudios/HungerGames/issues");
+            Util.warning("您正在使用测试版，请谨慎使用");
+            Util.warning("问题反馈: <aqua>https://github.com/ShaneBeeStudios/HungerGames/issues");
         }
 
         setupMetrics();
 
-        Util.log("HungerGames has been <green>enabled<grey> in <aqua>%.2f seconds<grey>!", (float) (System.currentTimeMillis() - start) / 1000);
+        Util.log("饥饿游戏 <green>已启用<grey>，耗时 <aqua>%.2f 秒<grey>!", (float) (System.currentTimeMillis() - start) / 1000);
     }
 
+    /**
+     * 重载插件
+     */
     public void reloadPlugin() {
         unloadPlugin(true);
     }
 
+    /**
+     * 卸载插件核心功能
+     * @param reload 是否为重载操作
+     */
     private void unloadPlugin(boolean reload) {
         this.gameManager.stopAllGames();
         PLUGIN_INSTANCE = null;
@@ -169,17 +184,23 @@ public class HungerGames extends JavaPlugin {
         }
     }
 
+    /**
+     * 插件禁用时执行
+     */
     @Override
     public void onDisable() {
-        // I know this seems odd, but this method just
-        // nulls everything to prevent memory leaks
+        // 我知道这看起来很奇怪，但这种方法只是
+        // 全部为空，以防止内存泄漏
         unloadPlugin(false);
-        Util.log("HungerGames has been disabled!");
+        Util.log("饥饿游戏已禁用！");
     }
 
+    /**
+     * 设置统计指标
+     */
     private void setupMetrics() {
         this.metrics = new Metrics(this, 25144);
-        // Config
+        // 配置统计
         this.metrics.addCustomChart(new DrilldownPie("config", () -> {
             Map<String, Map<String, Integer>> map = new HashMap<>();
             map.put("worldborder-enabled", Map.of("" + Config.WORLD_BORDER_ENABLED, 1));
@@ -189,11 +210,14 @@ public class HungerGames extends JavaPlugin {
             return map;
         }));
 
-        // Arenas
+        // 竞技场数量统计
         this.metrics.addCustomChart(new SimplePie("arenas-count", () ->
             "" + this.gameManager.getGames().size()));
     }
 
+    /**
+     * 加载事件监听器
+     */
     private void loadListeners() {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new GameBlockListener(this), this);
@@ -209,6 +233,9 @@ public class HungerGames extends JavaPlugin {
         pluginManager.registerEvents(new SessionWandListener(this), this);
     }
 
+    /**
+     * 加载命令
+     */
     private void loadCommands() {
         if (CommandAPI.isLoaded()) {
             CommandAPI.onEnable();
@@ -216,119 +243,116 @@ public class HungerGames extends JavaPlugin {
         }
     }
 
+    // =============== 获取器方法 ===============
+
     /**
-     * Get the instance of this plugin
-     *
-     * @return This plugin
+     * 获取插件实例
+     * @return 插件实例
      */
     public static HungerGames getPlugin() {
         return PLUGIN_INSTANCE;
     }
 
     /**
-     * Get an instance of the KillManager
-     *
-     * @return KillManager
+     * 获取击杀管理器
+     * @return 击杀管理器实例
      */
     public KillManager getKillManager() {
         return this.killManager;
     }
 
     /**
-     * Get an instance of the plugins main item manager
-     *
-     * @return The item manager
+     * 获取物品管理器
+     * @return 物品管理器实例
      */
     public ItemManager getItemManager() {
         return this.itemManager;
     }
 
     /**
-     * Get an instance of the plugins main kit manager
-     *
-     * @return The kit manager
+     * 获取装备包管理器
+     * @return 装备包管理器实例
      */
     public KitManager getKitManager() {
         return this.kitManager;
     }
 
     /**
-     * Get the instance of the game manager
-     *
-     * @return The game manager
+     * 获取游戏管理器
+     * @return 游戏管理器实例
      */
     public GameManager getGameManager() {
         return this.gameManager;
     }
 
     /**
-     * Get an instance of the PlayerManager
-     *
-     * @return PlayerManager
+     * 获取玩家管理器
+     * @return 玩家管理器实例
      */
     public PlayerManager getPlayerManager() {
         return playerManager;
     }
 
     /**
-     * Get an instance of the ArenaConfig
-     *
-     * @return ArenaConfig
+     * 获取竞技场配置
+     * @return 竞技场配置实例
      */
     public ArenaConfig getArenaConfig() {
         return this.arenaConfig;
     }
 
     /**
-     * Get an instance of HG's leaderboards
-     *
-     * @return Leaderboard
+     * 获取排行榜
+     * @return 排行榜实例
      */
     public Leaderboard getLeaderboard() {
         return this.leaderboard;
     }
 
     /**
-     * Get an instance of the language file
-     *
-     * @return Language file
+     * 获取语言文件
+     * @return 语言文件实例
      */
     public Language getLang() {
         return this.lang;
     }
 
     /**
-     * Get an instance of {@link Config}
-     *
-     * @return Config file
+     * 获取主配置文件
+     * @return 主配置实例
      */
     public Config getHGConfig() {
         return config;
     }
 
     /**
-     * Get an instance of the MobManager
-     *
-     * @return MobManager
+     * 获取生物管理器
+     * @return 生物管理器实例
      */
     public MobManager getMobManager() {
         return this.mobManager;
     }
 
+    /**
+     * 获取统计指标
+     * @return 统计指标实例
+     */
     public Metrics getMetrics() {
         return this.metrics;
     }
 
     /**
-     * Get an instance of the MythicMobs MobManager
-     *
-     * @return MythicMobs MobManager
+     * 获取MythicMobs管理器
+     * @return MythicMobs管理器实例
      */
     public io.lumine.mythic.api.mobs.MobManager getMythicMobManager() {
         return this.mythicMobManager;
     }
 
-    // Managers
+    /**
+     * 获取会话管理器
+     * @return 会话管理器实例
+     */
     public SessionManager getSessionManager() {
         return this.sessionManager;
     }

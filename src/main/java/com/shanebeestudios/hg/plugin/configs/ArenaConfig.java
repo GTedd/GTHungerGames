@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * General data handler for the plugin
+ * 插件的数据处理器
  */
 public class ArenaConfig {
 
@@ -38,7 +38,7 @@ public class ArenaConfig {
     private final Map<String, Pair<File, FileConfiguration>> fileConfigMap = new HashMap<>();
 
     /**
-     * @hidden
+     * @hidden 内部使用
      */
     @ApiStatus.Internal
     public ArenaConfig(HungerGames plugin) {
@@ -77,12 +77,12 @@ public class ArenaConfig {
 
     @SuppressWarnings("ConstantConditions")
     public void loadAllArenas() {
-        Util.log("Loading arenas:");
+        Util.log("正在加载竞技场:");
 
         this.arenaDirectory = new File(this.plugin.getDataFolder(), "arenas");
         if (!this.arenaDirectory.exists()) {
             if (!this.arenaDirectory.mkdirs()) {
-                Util.warning("Could not create arenas directory!");
+                Util.warning("无法创建竞技场目录!");
             }
         }
         int readyCount = 0;
@@ -102,13 +102,13 @@ public class ArenaConfig {
             }
         }
         if (readyCount == 0 && brokenCount == 0) {
-            Util.log("- <red>No Arenas found. <grey>Time to create some!");
+            Util.log("- <red>未找到任何竞技场 <grey>是时候创建一些了!");
         }
         if (readyCount > 0) {
-            Util.log("- <aqua>%s <grey>arenas have been <green>successfully loaded!", readyCount);
+            Util.log("- <aqua>%s <grey>个竞技场已<green>成功加载!", readyCount);
         }
         if (brokenCount > 0) {
-            Util.log("- <aqua>%s <grey>arenas have <red>failed to successfully loaded!", brokenCount);
+            Util.log("- <aqua>%s <grey>个竞技场<red>加载失败!", brokenCount);
         }
     }
 
@@ -133,7 +133,7 @@ public class ArenaConfig {
             maxPlayers = infoSection.getInt("max_players");
             freeRoamTime = infoSection.getInt("free_roam_time");
         } catch (Exception e) {
-            Util.warning("Unable to load information for arena '" + arenaName + "'!");
+            Util.warning("无法加载竞技场 '" + arenaName + "' 的信息!");
             isReady = false;
         }
         try {
@@ -146,7 +146,7 @@ public class ArenaConfig {
         try {
             lobbysign = LocationParser.getBlockLocFromString(locationsSection.getString("lobby_sign"));
         } catch (Exception e) {
-            Util.warning("Unable to load lobby sign for arena '" + arenaName + "'!");
+            Util.warning("无法加载竞技场 '" + arenaName + "' 的大厅标志!");
             Util.debug(e);
             isReady = false;
         }
@@ -156,7 +156,7 @@ public class ArenaConfig {
                 spawns.add(LocationParser.getLocFromString(location));
             }
         } catch (Exception e) {
-            Util.warning("Unable to load random spawns for arena '" + arenaName + "'!");
+            Util.warning("无法加载竞技场 '" + arenaName + "' 的随机出生点!");
             isReady = false;
         }
 
@@ -167,7 +167,7 @@ public class ArenaConfig {
             BoundingBox boundingBox = regionSection.getObject("bounding_box", BoundingBox.class);
             gameRegion = GameRegion.loadFromConfig(world, boundingBox);
         } catch (Exception e) {
-            Util.warning("Unable to load region bounds for arena " + arenaName + "!");
+            Util.warning("无法加载竞技场 " + arenaName + " 的区域边界!");
             isReady = false;
         }
 
@@ -177,8 +177,8 @@ public class ArenaConfig {
 
         World world = gameRegion.getWorld();
         if (world.getDifficulty() == Difficulty.PEACEFUL) {
-            Util.warning("Difficulty in world '%s' for arena '%s' is set to PEACEFUL...", world.getName(), arenaName);
-            Util.warning("This can have negative effects on the game, please consider raising the difficulty.");
+            Util.warning("世界 '%s' 中竞技场 '%s' 的难度设置为和平模式...", world.getName(), arenaName);
+            Util.warning("这可能会对游戏产生负面影响，请考虑提高难度");
         }
 
         // KITS
@@ -235,24 +235,24 @@ public class ArenaConfig {
             }
 
         } catch (Exception exception) {
-            Util.log("- <yellow>Failed to setup exit location for arena '%s', defaulting to spawn location of world '%s'",
+            Util.log("- <yellow>无法为竞技场 '%s' 设置退出位置，将使用世界 '%s' 的出生点代替",
                 arenaName, world.getName());
             Util.debug(exception);
         }
         if (gameArenaData.getStatus() == Status.BROKEN) {
-            Util.warning("<red>Failed to properly initiate arena <white>'<aqua>%s<white>'<grey>", arenaName);
-            Util.warning("Run <white>'<aqua>/hg debug %s<white>' <yellow>to check the status of the arena.", arenaName);
+            Util.warning("<red>无法正确初始化竞技场 <white>'<aqua>%s<white>'<grey>", arenaName);
+            Util.warning("运行 <white>'<aqua>/hg debug %s<white>' <yellow>命令来检查竞技场状态", arenaName);
             isReady = false;
         } else {
-            Util.log("- Loaded arena <white>'<aqua>%s<white>'<grey>", arenaName);
+            Util.log("- 已加载竞技场 <white>'<aqua>%s<white>'<grey>", arenaName);
         }
         return isReady;
     }
 
     /**
-     * Save a game to config
+     * 将游戏保存到配置
      *
-     * @param game Game to save
+     * @param game 要保存的游戏
      */
     public void saveGameToConfig(Game game) {
         String arenaName = game.getGameArenaData().getName();
@@ -314,9 +314,9 @@ public class ArenaConfig {
     }
 
     /**
-     * Remove an arena
+     * 移除一个竞技场
      *
-     * @param game Game to remove
+     * @param game 要移除的游戏
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public void removeArena(Game game) {

@@ -31,15 +31,15 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
- * General manager for games
+ * 游戏管理器 - 负责管理所有游戏实例
  */
 public class GameManager {
 
     private final HungerGames plugin;
-    private final Map<String, Game> games = new HashMap<>();
-    private final Language lang;
-    private final Random random = new Random();
-    private Location globalExitLocation;
+    private final Map<String, Game> games = new HashMap<>(); // 存储所有游戏的映射表
+    private final Language lang; // 语言配置文件
+    private final Random random = new Random(); // 随机数生成器
+    private Location globalExitLocation; // 全局退出位置
 
     public GameManager(HungerGames plugin) {
         this.plugin = plugin;
@@ -49,30 +49,27 @@ public class GameManager {
     }
 
     /**
-     * Get all games
-     *
-     * @return All games
+     * 获取所有游戏
+     * @return 所有游戏的不可变列表
      */
     public ImmutableList<Game> getGames() {
         return ImmutableList.copyOf(this.games.values());
     }
 
     /**
-     * Get names of all games
-     *
-     * @return Names of all games
+     * 获取所有游戏名称
+     * @return 按字母排序的游戏名称列表
      */
     public List<String> getGameNames() {
         return this.games.keySet().stream().sorted().collect(Collectors.toList());
     }
 
     /**
-     * Get the global exit location for games
-     * <p>If no location is set it will attempt to return the player's respawn location.
-     * If that fails it'll return the main world's spawn location.</p>
-     *
-     * @param player Player to check for respawn location
-     * @return Global location to exit
+     * 获取全局退出位置
+     * <p>如果未设置全局位置，则尝试返回玩家的重生位置，
+     * 如果失败则返回主世界的出生点</p>
+     * @param player 要检查的玩家
+     * @return 退出位置
      */
     public Location getGlobalExitLocation(@Nullable Player player) {
         if (this.globalExitLocation != null) return this.globalExitLocation;
@@ -86,9 +83,8 @@ public class GameManager {
     }
 
     /**
-     * Set the global exit location for games
-     *
-     * @param location Global exit location
+     * 设置全局退出位置
+     * @param location 要设置的退出位置
      */
     public void setGlobalExitLocation(Location location) {
         this.globalExitLocation = location;
@@ -96,20 +92,20 @@ public class GameManager {
     }
 
     /**
-     * Stop all currently running games
+     * 停止所有正在运行的游戏
      */
     @SuppressWarnings("DataFlowIssue")
     public void stopAllGames() {
         PlayerManager playerManager = this.plugin.getPlayerManager();
         List<Player> players = new ArrayList<>();
         for (Game game : this.games.values()) {
-            game.cancelTasks();
-            game.getGameBlockData().forceRollback();
-            players.addAll(game.getGamePlayerData().getPlayers());
-            players.addAll(game.getGamePlayerData().getSpectators());
+            game.cancelTasks(); // 取消所有任务
+            game.getGameBlockData().forceRollback(); // 强制回滚
+            players.addAll(game.getGamePlayerData().getPlayers()); // 获取所有玩家
+            players.addAll(game.getGamePlayerData().getSpectators()); // 获取所有观战者
         }
         for (Player player : players) {
-            player.closeInventory();
+            player.closeInventory(); // 关闭玩家背包
             if (playerManager.hasPlayerData(player)) {
                 playerManager.getPlayerData(player).getGame().getGamePlayerData().leaveGame(player, false);
                 playerManager.removePlayerData(player);
@@ -119,28 +115,47 @@ public class GameManager {
                 playerManager.removePlayerData(player);
             }
         }
-        this.games.clear();
+        this.games.clear(); // 清空游戏列表
     }
 
+    /**
+     * 创建新游戏
+     * @param name 游戏名称
+     * @param corner1 区域角点1
+     * @param corner2 区域角点2
+     * @param spawns 出生点列表
+     * @param sign 关联的告示牌
+     * @param timer 游戏时长
+     * @param minPlayers 最小玩家数
+     * @param maxPlayers 最大玩家数
+     * @param cost 参与费用
+     * @return 创建的游戏实例
+     */
     @SuppressWarnings("UnusedReturnValue")
     public Game createGame(String name, Block corner1, Block corner2, List<Location> spawns, Location sign,
                            int timer, int minPlayers, int maxPlayers, int cost) {
         GameRegion gameRegion = GameRegion.createNew(corner1, corner2);
-        Game game = new Game(name, gameRegion, spawns, sign, timer, minPlayers, maxPlayers, Config.SETTINGS_FREE_ROAM_TIME, true, cost);
+        Game game = new Game(name, gameRegion, spawns, sign, timer, minPlayers, maxPlayers, 
+                            Config.SETTINGS_FREE_ROAM_TIME, true, cost);
         this.games.put(name, game);
         this.plugin.getArenaConfig().saveGameToConfig(game);
         return game;
     }
 
+    /**
+     * 从配置加载游戏
+     * @param name 游戏名称
+     * @param game 游戏实例
+     */
     public void loadGameFromConfig(String name, Game game) {
         this.games.put(name, game);
     }
 
     /**
-     * Check the status of a game while being set up
-     *
-     * @param game   Game to check
-     * @param sender Sender issuing the check
+     * 检查游戏设置状态
+     * @param game 要检查的游戏
+     * @param sender 命令发送者
+     * @return 游戏是否准备就绪
      */
     public boolean checkGame(Game game, CommandSender sender) {
         GameArenaData gameArenaData = game.getGameArenaData();
@@ -150,26 +165,26 @@ public class GameManager {
 
         boolean isReady = true;
 
-        // Check spawns
+        // 检查出生点数量
         if (gameArenaData.getSpawns().size() < maxPlayers) {
             Util.sendPrefixedMessage(sender, this.lang.arena_debug_need_more_spawns.replace("<number>",
                 "" + (maxPlayers - gameArenaData.getSpawns().size())));
             isReady = false;
         }
-        // Check min/max players
+        // 检查玩家数量设置
         if (maxPlayers < minPlayers) {
             Util.sendPrefixedMessage(sender, this.lang.arena_debug_min_max_players
                 .replace("<min>", "" + minPlayers)
                 .replace("<max>", "" + maxPlayers));
             isReady = false;
         }
-        // Check lobby wall
+        // 检查大厅墙
         if (!game.getGameBlockData().isLobbyValid()) {
             Util.sendPrefixedMessage(sender, this.lang.arena_debug_invalid_lobby);
             Util.sendPrefixedMessage(sender, this.lang.arena_debug_set_lobby.replace("<arena>", name));
             isReady = false;
         }
-        // Check overlapping
+        // 检查区域重叠
         Game overlap = gameArenaData.checkOverlap();
         if (overlap != null) {
             String message = this.lang.arena_debug_arena_overlap
@@ -178,21 +193,20 @@ public class GameManager {
             Util.sendPrefixedMessage(sender, message);
             isReady = false;
         }
-        // Yay! All good to go
+        // 检查通过
         if (isReady) {
             Util.sendPrefixedMessage(sender, this.lang.arena_debug_ready_run.replace("<arena>", name));
-            // Only update status if the debug command is run
+            // 只有运行调试命令时才更新状态
             if (sender != null) gameArenaData.setStatus(Status.READY);
         }
         return isReady;
     }
 
     /**
-     * Fill chests in a game
-     *
-     * @param game      Game this chest is in
-     * @param block     Chest to fill
-     * @param chestType Type of chest
+     * 填充箱子物品
+     * @param game 所属游戏
+     * @param block 箱子方块
+     * @param chestType 箱子类型
      */
     public void fillChests(Game game, Block block, ChestType chestType) {
         Inventory inventory = ((InventoryHolder) block.getState()).getInventory();
@@ -200,8 +214,10 @@ public class GameManager {
         for (int slot = 0; slot <= 26; slot++) {
             slots.add(slot);
         }
-        Collections.shuffle(slots);
-        inventory.clear();
+        Collections.shuffle(slots); // 随机打乱槽位
+        inventory.clear(); // 清空箱子
+        
+        // 根据箱子类型获取最小/最大物品数
         int min = switch (chestType) {
             case REGULAR -> Config.CHESTS_REGULAR_MIN_CONTENT;
             case BONUS -> Config.CHESTS_BONUS_MIN_CONTENT;
@@ -227,11 +243,10 @@ public class GameManager {
     }
 
     /**
-     * Get a random item from a game's item list
-     *
-     * @param game      Game to get the item from
-     * @param chestType Type of chest for items
-     * @return Random ItemStack
+     * 获取随机物品
+     * @param game 所属游戏
+     * @param chestType 箱子类型
+     * @return 随机物品堆
      */
     public ItemStack randomItem(Game game, ChestType chestType) {
         List<ItemStack> items = game.getGameItemData().getItemData().getItems(chestType);
@@ -243,10 +258,9 @@ public class GameManager {
     }
 
     /**
-     * Check if a location is in a game's bounds
-     *
-     * @param location The location to check for a game
-     * @return True if the location is within a game's bounds
+     * 检查位置是否在游戏区域内
+     * @param location 要检查的位置
+     * @return 是否在游戏区域内
      */
     public boolean isInRegion(Location location) {
         for (Game g : this.games.values()) {
@@ -257,10 +271,9 @@ public class GameManager {
     }
 
     /**
-     * Get a game at a location
-     *
-     * @param location The location to check for a game
-     * @return The game
+     * 获取位置所在的游戏
+     * @param location 要检查的位置
+     * @return 游戏实例，如果不存在则返回null
      */
     public Game getGame(Location location) {
         for (Game g : this.games.values()) {
@@ -271,19 +284,17 @@ public class GameManager {
     }
 
     /**
-     * Get a game by name
-     *
-     * @param name The name of the game to find
-     * @return The game
+     * 通过名称获取游戏
+     * @param name 游戏名称
+     * @return 游戏实例
      */
     public Game getGame(String name) {
         return this.games.get(name);
     }
 
     /**
-     * Delete a game
-     *
-     * @param game Game to delete
+     * 删除游戏
+     * @param game 要删除的游戏
      */
     public void deleteGame(Game game) {
         String name = game.getGameArenaData().getName();
@@ -292,18 +303,17 @@ public class GameManager {
     }
 
     /**
-     * Get the number of games running
-     *
-     * @return Number of games running
+     * 获取正在运行的游戏数量
+     * @return 运行中的游戏数量
      */
     public int gamesRunning() {
         int i = 0;
         for (Game game : this.games.values()) {
             switch (game.getGameArenaData().getStatus()) {
-                case RUNNING:
-                case COUNTDOWN:
-                case FREE_ROAM:
-                case ROLLBACK:
+                case RUNNING:    // 运行中
+                case COUNTDOWN: // 倒计时
+                case FREE_ROAM: // 自由活动
+                case ROLLBACK:   // 回滚中
                     i++;
             }
         }

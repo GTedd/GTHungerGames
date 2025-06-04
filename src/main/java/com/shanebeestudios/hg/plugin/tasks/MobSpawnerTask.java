@@ -36,11 +36,11 @@ public class MobSpawnerTask implements Runnable {
     public void run() {
         int entityCount = this.gameEntityData.getLoggedEntityCount();
         int playerCap = this.gamePlayerData.getPlayers().size() * this.cap;
-        // Prevent spawning if cap already reached
+        // 如果已达到上限，则阻止生成
         if (entityCount > playerCap) return;
 
         for (Player player : this.gamePlayerData.getPlayers()) {
-            // Keep checking cap as we spawn more
+            // 更多精彩内容，敬请期待
             if (entityCount > playerCap) return;
 
             Location spawnLocation = getSafeSpawnLocation(this.world, player.getLocation().clone());

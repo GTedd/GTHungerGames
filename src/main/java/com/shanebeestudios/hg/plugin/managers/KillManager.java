@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Manager for deaths in game
+ * 游戏内死亡事件管理器
  */
 @SuppressWarnings("UnstableApiUsage")
 public class KillManager {
@@ -82,11 +82,11 @@ public class KillManager {
     }
 
     /**
-     * Get the death message when a player dies of natural causes (non-entity involved deaths)
+     * 获取玩家自然死亡(非实体导致的死亡)时的死亡消息
      *
-     * @param damageSource Source of the damage
-     * @param victim       Player victim
-     * @return Message that will be sent when the player dies
+     * @param damageSource 伤害来源
+     * @param victim       死亡的玩家
+     * @return 玩家死亡时将发送的消息
      */
     @SuppressWarnings("UnstableApiUsage")
     public String getNaturalDeathString(DamageSource damageSource, Player victim) {
@@ -103,11 +103,11 @@ public class KillManager {
     }
 
     /**
-     * Get the death message when a player is killed by an entity
+     * 获取玩家被实体杀死时的死亡消息
      *
-     * @param victimName Name of player who died
-     * @param killer     Entity that killed this player
-     * @return Death string including the victim's name and the killer
+     * @param victimName 死亡的玩家名称
+     * @param killer     杀死玩家的实体
+     * @return 包含受害者名称和凶手信息的死亡字符串
      */
     public String getKillString(String victimName, DamageSource damageSource, Entity killer) {
         // Custom death message from mobs.yml
@@ -164,20 +164,20 @@ public class KillManager {
     }
 
     /**
-     * Check if the shooter was a player
+     * 检查射击者是否为玩家
      *
-     * @param projectile The arrow which hit the player
-     * @return True if the arrow was shot by a player
+     * @param projectile 击中玩家的箭
+     * @return 如果箭是由玩家射出的则返回true
      */
     public boolean isShotByPlayer(Entity projectile) {
         return projectile instanceof Projectile p && p.getShooter() instanceof Player;
     }
 
     /**
-     * Get the shooter of this arrow
+     * 获取射出此箭的玩家
      *
-     * @param projectile The arrow in question
-     * @return The player which shot the arrow
+     * @param projectile 要查询的箭
+     * @return 射出箭的玩家
      */
     public @Nullable Player getPlayerShooter(Projectile projectile) {
         if (projectile.getShooter() instanceof Player player) return player;
@@ -221,7 +221,7 @@ public class KillManager {
                 deathString = getNaturalDeathString(damageSource, player);
             }
 
-            // Send death message to all players in game
+            // 向游戏中所有玩家发送死亡消息
             gamePlayerData.messageAllActivePlayers(this.lang.death_messages_prefix + " <light_purple>" + deathString);
 
             this.leaderboard.addStat(player, Leaderboard.Stats.DEATHS);
@@ -236,10 +236,10 @@ public class KillManager {
             gamePlayerData.leaveGame(player, true);
             game.getGameCommandData().runCommands(GameCommandData.CommandType.DEATH, player);
 
-            // Call our death event so other plugins can pick up the fake death
+            // 调用我们的死亡事件以便其他插件可以获取这个假死亡
             PlayerDeathGameEvent event = new PlayerDeathGameEvent(player, damageSource, drops, deathString, game);
             event.callEvent();
-            // Call bukkit player death event so other plugins can pick up on that too
+            // 调用bukkit玩家死亡事件以便其他插件也可以获取
             PlayerDeathEvent playerDeathEvent = new PlayerDeathEvent(player, damageSource,
                 drops, 0, 0, 0, 0,
                 Util.getMini(deathString), false);

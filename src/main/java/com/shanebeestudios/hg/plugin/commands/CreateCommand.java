@@ -29,21 +29,21 @@ public class CreateCommand extends SubCommand {
     protected Argument<?> register() {
         return LiteralArgument.literal("create")
             .withPermission(Permissions.COMMAND_CREATE.permission())
-            .then(new StringArgument("name")
-                .then(new IntegerArgument("min-players", 2)
-                    .then(new IntegerArgument("max-players")
-                        .then(new IntegerArgument("time")
-                            .then(new IntegerArgument("cost")
+            .then(new StringArgument("名称")
+                .then(new IntegerArgument("最小玩家数", 2)
+                    .then(new IntegerArgument("最大玩家数")
+                        .then(new IntegerArgument("时间")
+                            .then(new IntegerArgument("费用")
                                 .setOptional(true)
                                 .executesPlayer(info -> {
                                     CommandArguments args = info.args();
                                     Player player = info.sender();
                                     UUID uuid = player.getUniqueId();
-                                    String name = args.getByClass("name", String.class);
-                                    Integer minPlayers = args.getByClass("min-players", Integer.class);
-                                    Integer maxPlayers = args.getByClass("max-players", Integer.class);
-                                    Integer time = args.getByClass("time", Integer.class);
-                                    Integer cost = args.getByClassOrDefault("cost", Integer.class, 0);
+                                    String name = args.getByClass("名称", String.class);
+                                    Integer minPlayers = args.getByClass("最小玩家数", Integer.class);
+                                    Integer maxPlayers = args.getByClass("最大玩家数", Integer.class);
+                                    Integer time = args.getByClass("时间", Integer.class);
+                                    Integer cost = args.getByClassOrDefault("费用", Integer.class, 0);
 
                                     if (name == null || minPlayers == null || maxPlayers == null || time == null) {
                                         Util.sendPrefixedMessage(player, this.lang.command_create_error_arguments);

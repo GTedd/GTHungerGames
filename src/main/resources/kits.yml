@@ -1,243 +1,248 @@
-## KITS
-# Create new ones, rename the current ones, delete them, go nuts
-# See KITS section in wiki for more info (https://github.com/ShaneBeeStudios/HungerGames/wiki/Kits)
+## KITS 职业套装配置
+# 可以自由创建、重命名或删除职业套装
+# 更多信息请查看Wiki中的KITS部分 (https://github.com/ShaneBeeStudios/HungerGames/wiki/Kits)
+
 kits:
-  # This kit will be given to players automatically when they join
-  # If you don't want that, just delete this kit
+  # 默认职业套装，玩家加入游戏时自动获得
+  # 如果不需要，可以直接删除这个职业
   default:
     helmet:
-      id: 'minecraft:leather_helmet'
+      id: 'minecraft:leather_helmet'  # 皮革头盔
       count: 1
     chestplate:
-      id: 'minecraft:leather_chestplate'
+      id: 'minecraft:leather_chestplate'  # 皮革胸甲
       count: 1
     leggings:
-      id: 'minecraft:leather_leggings'
+      id: 'minecraft:leather_leggings'  # 皮革护腿
       count: 1
     boots:
-      id: 'minecraft:leather_boots'
+      id: 'minecraft:leather_boots'  # 皮革靴子
       count: 1
     items:
       '1':
-        id: 'minecraft:wooden_sword'
+        id: 'minecraft:wooden_sword'  # 木剑
       '2':
-        id: 'minecraft:bread'
+        id: 'minecraft:bread'  # 面包
         count: 6
 
-  # The name of the kit, change to whatever you would like
-  bowman:
-    # Whether or not this kit requires a permission
-    # none = no permission
-    # You can use any permission string you'd like
-    # Note: The permission will be prefixed with `hungergames.kit.kits.`
-    # If these kits are in an arena yml file, it'll prefix with `hungergames.kit.<arena name>.`
+  # 职业名称可自定义修改
+  bowman:  # 弓箭手
+    # 该职业是否需要权限
+    # none = 不需要权限
+    # 可以使用任意权限字符串
+    # 注意：权限会自动添加前缀 `hungergames.kit.kits.`
+    # 如果在竞技场配置文件中，前缀会是 `hungergames.kit.<竞技场名称>.`
     permission: 'none'
     helmet:
-      id: 'minecraft:leather_helmet'
+      id: 'minecraft:leather_helmet'  # 皮革头盔
       count: 1
-      dyed_color: 11546150
+      dyed_color: 11546150  # 染色颜色（棕色）
       hidden_components:
-        - 'minecraft:dyed_color'
+        - 'minecraft:dyed_color'  # 隐藏染色属性
     chestplate:
-      id: 'minecraft:leather_chestplate'
+      id: 'minecraft:leather_chestplate'  # 皮革胸甲
       count: 1
       dyed_color: 11546150
       hidden_components:
         - 'minecraft:dyed_color'
     leggings:
-      id: 'minecraft:leather_leggings'
+      id: 'minecraft:leather_leggings'  # 皮革护腿
       count: 1
       dyed_color: 11546150
       hidden_components:
         - 'minecraft:dyed_color'
     boots:
-      id: 'minecraft:leather_boots'
+      id: 'minecraft:leather_boots'  # 皮革靴子
       count: 1
       dyed_color: 11546150
       hidden_components:
         - 'minecraft:dyed_color'
     items:
       '1':
-        id: 'minecraft:bow'
+        id: 'minecraft:bow'  # 弓
         count: 1
-        custom_name: '<dark_green>Lucky Bow'
+        custom_name: '<dark_green>幸运之弓'  # 自定义名称
       '2':
-        id: 'minecraft:arrow'
+        id: 'minecraft:arrow'  # 箭
         count: 64
-        custom_name: '<green>Lucky Arrow'
+        custom_name: '<green>幸运之箭'
       '3':
-        id: 'minecraft:potion'
+        id: 'minecraft:potion'  # 药水
         count: 1
-        custom_name: '<aqua>Healing'
+        custom_name: '<aqua>治疗药水'
         potion_effects:
-          'minecraft:instant_health':
-            duration: 60
-            amplifier: 0
+          'minecraft:instant_health':  # 瞬间治疗
+            duration: 60  # 持续时间（刻）
+            amplifier: 0  # 效果等级
       '4':
         id: 'minecraft:potion'
         count: 1
-        custom_name: '<dark_aqua>Lucky Healing'
+        custom_name: '<dark_aqua>幸运治疗药水'
         potion_effects:
           'minecraft:instant_health':
             duration: 80
             amplifier: 1
-          'minecraft:luck':
+          'minecraft:luck':  # 幸运
             duration: 100
             amplifier: 1
       '5':
         id: 'minecraft:potion'
         count: 1
-        potion: 'minecraft:long_strength'
+        potion: 'minecraft:long_strength'  # 力量（长效）
       '6':
-        id: 'minecraft:tipped_arrow'
+        id: 'minecraft:tipped_arrow'  # 药箭
         count: 1
-        potion: 'minecraft:harming'
-    # Potion effects to be applied to the player
+        potion: 'minecraft:harming'  # 伤害
+    # 玩家获得的药水效果
     potion_effects:
-      'minecraft:fire_resistance':
-        duration: -1
-        amplifier: 2
-  survivor:
+      'minecraft:fire_resistance':  # 防火
+        duration: -1  # 无限持续时间
+        amplifier: 2  # 效果等级
+
+  survivor:  # 生存者
     permission: 'none'
     helmet:
-      id: 'minecraft:leather_helmet'
+      id: 'minecraft:leather_helmet'  # 皮革头盔
       count: 1
     chestplate:
-      id: 'minecraft:leather_chestplate'
+      id: 'minecraft:leather_chestplate'  # 皮革胸甲
       count: 1
-      dyed_color: 6192150
+      dyed_color: 6192150  # 染色颜色（绿色）
       hidden_components:
         - 'minecraft:dyed_color'
     leggings:
-      id: 'minecraft:leather_leggings'
+      id: 'minecraft:leather_leggings'  # 皮革护腿
       count: 1
       dyed_color: 6192150
       hidden_components:
         - 'minecraft:dyed_color'
     boots:
-      id: 'minecraft:leather_boots'
+      id: 'minecraft:leather_boots'  # 皮革靴子
       count: 1
     items:
       '1':
-        id: 'minecraft:stone_sword'
+        id: 'minecraft:stone_sword'  # 石剑
         count: 1
-        custom_name: '<gray>Survival Sword'
+        custom_name: '<gray>生存之剑'
       '2':
-        id: 'minecraft:bread'
+        id: 'minecraft:bread'  # 面包
         count: 4
-        custom_name: "<gold>Peasant's Bread"
+        custom_name: "<gold>农夫面包"
       '3':
-        id: 'minecraft:potion'
+        id: 'minecraft:potion'  # 药水
         count: 1
-        custom_name: '<aqua>Healing'
+        custom_name: '<aqua>治疗药水'
         potion_effects:
           'minecraft:instant_health':
             duration: 60
             amplifier: 0
-    potion_effects: [ ]
-  pro:
+    potion_effects: [ ]  # 无额外药水效果
+
+  pro:  # 专业玩家
     permission: 'none'
     helmet:
-      id: 'minecraft:turtle_helmet'
+      id: 'minecraft:turtle_helmet'  # 海龟壳
       count: 1
-      custom_name: '<dark_green>Turtle Shell'
-    chestplate: ''
-    leggings: ''
-    boots: ''
+      custom_name: '<dark_green>海龟头盔'
+    chestplate: ''  # 无胸甲
+    leggings: ''  # 无护腿
+    boots: ''  # 无靴子
     items:
       '1':
-        id: 'minecraft:iron_sword'
+        id: 'minecraft:iron_sword'  # 铁剑
         count: 1
       '2':
-        id: 'minecraft:bread'
+        id: 'minecraft:bread'  # 面包
         count: 4
-        custom_name: '<dark_gray>Pro Bread'
+        custom_name: '<dark_gray>专业面包'
       '3':
-        id: 'minecraft:potion'
+        id: 'minecraft:potion'  # 药水
         count: 1
-        custom_name: '<aqua>Super Healing'
+        custom_name: '<aqua>超级治疗药水'
         potion_effects:
           'minecraft:instant_health':
             duration: 60
             amplifier: 1
-    potion_effects: [ ]
-  ninja:
+    potion_effects: [ ]  # 无额外药水效果
+
+  ninja:  # 忍者
     permission: 'none'
     helmet:
-      id: 'minecraft:leather_helmet'
+      id: 'minecraft:leather_helmet'  # 皮革头盔
       count: 1
-      dyed_color: 1908001
+      dyed_color: 1908001  # 染色颜色（黑色）
       hidden_components:
         - 'minecraft:dyed_color'
     chestplate:
-      id: 'minecraft:leather_chestplate'
+      id: 'minecraft:leather_chestplate'  # 皮革胸甲
       count: 1
-      custom_name: '<gray>Ninja-Jacket'
-      lore:
-        - '<gold>Ninja-Stealth-Suit'
+      custom_name: '<gray>忍者夹克'
+      lore:  # 描述文本
+        - '<gold>忍者潜行套装'
         - '<dark_red>-------------'
       enchantments:
-        'minecraft:fire_protection': 1
+        'minecraft:fire_protection': 1  # 火焰保护I
       dyed_color: 1908001
       hidden_components:
         - 'minecraft:dyed_color'
     leggings:
-      id: 'minecraft:leather_leggings'
+      id: 'minecraft:leather_leggings'  # 皮革护腿
       count: 1
       dyed_color: 1908001
       hidden_components:
         - 'minecraft:dyed_color'
     boots:
-      id: 'minecraft:leather_boots'
+      id: 'minecraft:leather_boots'  # 皮革靴子
       count: 1
       enchantments:
-        'minecraft:feather_falling': 1
+        'minecraft:feather_falling': 1  # 摔落保护I
       dyed_color: 1908001
       hidden_components:
         - 'minecraft:dyed_color'
     items:
       '1':
-        id: 'minecraft:potion'
+        id: 'minecraft:potion'  # 药水
         count: 1
-        custom_name: '<aqua>Super Healing'
+        custom_name: '<aqua>超级治疗药水'
         potion_effects:
           'minecraft:instant_health':
             duration: 60
             amplifier: 1
     potion_effects:
-      'minecraft:speed':
-        duration: -1
-        amplifier: 1
-  stupid_class:
-    permission: 'stupid_class'
-    helmet: ''
-    chestplate: ''
-    leggings: ''
-    boots: ''
+      'minecraft:speed':  # 速度
+        duration: -1  # 无限持续时间
+        amplifier: 1  # 效果等级
+
+  stupid_class:  # 奇葩职业
+    permission: 'stupid_class'  # 需要权限
+    helmet: ''  # 无头盔
+    chestplate: ''  # 无胸甲
+    leggings: ''  # 无护腿
+    boots: ''  # 无靴子
     items:
       '1':
-        id: 'minecraft:iron_sword'
+        id: 'minecraft:iron_sword'  # 铁剑
         count: 1
-        custom_name: '<aqua>OP <gold>Sword?'
+        custom_name: '<aqua>超强 <gold>剑？'
         enchantments:
-          'minecraft:sharpness': 2
-          'minecraft:smite': 2
+          'minecraft:sharpness': 2  # 锋利II
+          'minecraft:smite': 2  # 亡灵杀手II
       '2':
-        id: 'minecraft:bread'
+        id: 'minecraft:bread'  # 面包
         count: 4
       '3':
-        id: 'minecraft:potion'
+        id: 'minecraft:potion'  # 药水
         count: 1
-        custom_name: '<aqua>Super Duper Healing'
+        custom_name: '<aqua>超级加倍治疗药水'
         potion_effects:
           'minecraft:instant_health':
             duration: 60
-            amplifier: 2
+            amplifier: 2  # 效果等级
       '4':
         id: 'minecraft:potion'
         count: 1
-        potion: 'minecraft:strong_turtle_master'
+        potion: 'minecraft:strong_turtle_master'  # 神龟（强效）
     potion_effects:
-      'minecraft:fire_resistance':
-        duration: -1
-        amplifier: 2
+      'minecraft:fire_resistance':  # 防火
+        duration: -1  # 无限持续时间
+        amplifier: 2  # 效果等级

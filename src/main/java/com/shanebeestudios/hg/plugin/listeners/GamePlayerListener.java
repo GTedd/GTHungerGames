@@ -105,7 +105,7 @@ public class GamePlayerListener extends GameListenerBase {
                 event.setCancelled(true);
             }
         }
-        // Prevent spectators from dropping items
+        // 防止观众掉落物品
         if (this.playerManager.hasSpectatorData(player)) {
             event.setCancelled(true);
         }
@@ -114,7 +114,7 @@ public class GamePlayerListener extends GameListenerBase {
     @EventHandler
     private void onSprint(FoodLevelChangeEvent event) {
         Player player = (Player) event.getEntity();
-        // Prevent spectators from losing food level
+        // 防止观众失去食物等级
         if (this.playerManager.hasSpectatorData(player)) {
             player.setFoodLevel(20);
             event.setCancelled(true);

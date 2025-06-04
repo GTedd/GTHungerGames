@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * General manager for kits
+ * 装备包管理器
  */
 public class KitManager {
 
@@ -32,34 +32,34 @@ public class KitManager {
     }
 
     private void loadDefaultKits() {
-        Util.log("Loading kits:");
+        Util.log("正在加载装备包:");
         File kitFile = new File(this.plugin.getDataFolder(), "kits.yml");
 
         if (!kitFile.exists()) {
             this.plugin.saveResource("kits.yml", false);
-            Util.log("- New kits.yml file has been <green>successfully generated!");
+            Util.log("- 新的kits.yml文件已<green>成功生成!");
         }
         YamlConfiguration kitConfig = YamlConfiguration.loadConfiguration(kitFile);
         ConfigurationSection kitsSection = kitConfig.getConfigurationSection("kits");
         assert kitsSection != null;
         this.defaultKitData = kitCreator(kitsSection, null);
-        Util.log("- Kits have been <green>successfully loaded!");
+        Util.log("- 装备包已<green>成功加载!");
     }
 
     /**
-     * Get the default KitData
+     * 获取默认的装备包数据
      *
-     * @return Default KitData
+     * @return 默认装备包数据
      */
     public KitData getDefaultKitData() {
         return this.defaultKitData;
     }
 
     /**
-     * Set the kits for a game from a config
+     * 从配置文件中为游戏设置装备包
      *
-     * @param game        The game to set the kits for
-     * @param arenaConfig Config the kit is pulled from
+     * @param game        要设置装备包的游戏
+     * @param arenaConfig 获取装备包的配置文件
      */
     public void loadGameKits(Game game, ConfigurationSection arenaConfig) {
         ConfigurationSection kitsSection = arenaConfig.getConfigurationSection("kits");
@@ -104,10 +104,10 @@ public class KitManager {
 
                 KitEntry kitEntry = new KitEntry(game, kitName, inventoryContent, helmet, chestplate, leggings, boots, permission, potionEffects);
                 kit.addKitEntry(kitName, kitEntry);
-                Util.log("- Loaded kit <white>'<aqua>%s<white>'", gameName + kitName);
+                Util.log("- 已加载装备包 <white>'<aqua>%s<white>'", gameName + kitName);
             } catch (Exception e) {
                 Util.log("-------------------------------------------");
-                Util.log("<yellow>Unable to load kit " + gameName + kitName + "! (for a more detailed message enable 'debug' in config and reload)");
+                Util.log("<yellow>无法加载装备包 " + gameName + kitName + "! (如需详细信息请在配置中启用'debug'并重新加载)");
                 Util.log("-------------------------------------------");
                 Util.debug(e);
             }

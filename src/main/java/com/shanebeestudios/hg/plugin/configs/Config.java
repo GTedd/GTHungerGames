@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 /**
- * Main config class <b>Internal Use Only</b>
+ * 主配置类 <b>仅供内部使用</b>
  */
 public class Config {
 
@@ -118,12 +118,12 @@ public class Config {
         }
         if (!this.configFile.exists()) {
             this.plugin.saveResource("config.yml", false);
-            Util.log("New config.yml <green>created");
+            Util.log("新 config.yml 文件已<green>创建");
         }
         this.config = YamlConfiguration.loadConfiguration(this.configFile);
         matchConfig(this.config, this.configFile);
         loadConfig();
-        Util.log("config.yml <green>successfully loaded");
+        Util.log("config.yml <green>成功载入文件");
     }
 
 
@@ -205,15 +205,15 @@ public class Config {
         try {
             Vault.setupEconomy();
             if (Vault.ECONOMY == null) {
-                Util.log("<red>Unable to setup vault!");
-                Util.log(" - <red>Economy provider is missing.");
-                Util.log(" - <yellow>Cash rewards will not be given out..");
+                Util.log("<red>无法设置Vault经济系统!");
+                Util.log(" - <red>缺少经济系统提供者.");
+                Util.log(" - <yellow>将不会发放现金奖励..");
                 REWARD_ENABLED = false;
                 HAS_ECONOMY = false;
             }
         } catch (NoClassDefFoundError e) {
-            Util.log("<red>Unable to setup vault!");
-            Util.log("  - <yellow>Cash rewards will not be given out..");
+            Util.log("<red>无法设置Vault经济系统!");
+            Util.log("  - <yellow>将不会发放现金奖励..");
             REWARD_ENABLED = false;
             HAS_ECONOMY = false;
         }
@@ -261,9 +261,9 @@ public class Config {
     }
 
     /**
-     * Set and save the global exit location to config
+     * 设置并保存全局退出位置到配置
      *
-     * @param location Global exit location
+     * @param location 全局退出位置
      */
     public void setGlobalExitLocation(Location location) {
         String locString = LocationParser.locToString(location);

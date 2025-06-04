@@ -1,156 +1,154 @@
-## HungerGames
-# Revamped by: ShaneBee
+## HungerGames 饥饿游戏配置
+# 重构者: ShaneBee
 
-# Issues: Please report issues on the GitHub issue tracker @ https://github.com/ShaneBeeStudios/HungerGames/issues
-# Updates: Can be found on SpigotMC @ --- https://www.spigotmc.org/resources/hungergames.65942/
+# 问题反馈: 请在GitHub问题跟踪器提交问题 @ https://github.com/ShaneBeeStudios/HungerGames/issues
+# 更新日志: 可在SpigotMC查看 @ --- https://www.spigotmc.org/resources/hungergames.65942/
 
-# More Info: See the wiki for more info on this config @ https://github.com/ShaneBeeStudios/HungerGames/wiki/Config.yml
+# 更多信息: 配置文件的详细说明请见Wiki @ https://github.com/ShaneBeeStudios/HungerGames/wiki/Config.yml
 
-# Helpful Links:
-# Bukkit Material Enums: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
-# Bukkit Tags: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Tag.html
+# 帮助链接:
+# Bukkit材料枚举: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+# Bukkit标签: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Tag.html
 
 settings:
-  # When enabled, more informative debug messages will be sent when errors occur
+  # 启用时，错误发生时将显示更详细的调试信息
   debug: false
-  # When enabled, if a player joins an arena, a message will broadcast to all players on the server that a game is available to
-  # join and how many players til it can start.
-  # A message will broadcast that a game has started, and that you can still join.
-  # If disabled, this will only broadcast to players in that specific game
+  # 启用时，当玩家加入竞技场时，将向服务器所有玩家广播消息，通知有游戏可加入及还需多少玩家才能开始
+  # 游戏开始时也会广播消息，通知玩家仍可加入
+  # 禁用时，仅向该特定游戏的玩家广播
   broadcast-join-messages: true
-  # When enabled, winners will be broadcast to the whole server
-  # If disabled, winners will only broadcast to players who played that specific game
+  # 启用时，胜利者将向全服广播
+  # 禁用时，仅向参与该特定游戏的玩家广播
   broadcast-win-messages: true
-  # The time once the game starts, how long players are safe from PvP (In seconds)
-  # Set to 0 to disable
+  # 游戏开始后玩家免受PvP伤害的时间（秒）
+  # 设置为0以禁用
   free-roam-time: 25
-  # Whether or not to show a countdown bossbar in game
+  # 是否在游戏中显示倒计时Boss栏
   bossbar-countdown: true
-  # The amount of uses a tracking stick will have
+  # 追踪棒的使用次数
   tracking-stick-uses: 8
-  # Minimum amount of players required in a game for a tracking stick to work
+  # 追踪棒生效所需的最小玩家数量
   players-for-tracking-stick: 5
-  # Maximum/Minimum amount of items that will spawn in chests
+  # 箱子中生成物品的最大/最小数量
   max-chestcontent: 5
   min-chestcontent: 1
-  # Maximum/Minimum amount of items that will spawn in bonus chests
+  # 奖励箱子中生成物品的最大/最小数量
   max-bonus-chestcontent: 5
   min-bonus-chestcontent: 1
-  # When the game has x seconds left, teleport the players back to their starting point
-  # If set to '0' players will not teleport
+  # 当游戏剩余x秒时，将玩家传送回起点
+  # 设置为'0'时不传送
   teleport-at-end-time: 30
-  # When enabled, if a player joins a game via command, when they leave they will
-  # be teleported back to their previous location (ie: where they ran the command)
-  # This value will be ignored when clicking lobby signs
+  # 启用时，玩家通过命令加入游戏后，离开时会传送回之前的位置（即执行命令的位置）
+  # 点击大厅告示牌时此设置无效
   save-previous-location: true
 
-  # The location players will teleport to after leaving a game
-  # This can be changed per arena
-  # If 'none', will use the player's respawn location or main world's spawn location
+  # 玩家离开游戏后传送到的位置
+  # 可针对每个竞技场单独设置
+  # 若为'none'，则使用玩家的重生点或主世界的出生点
   global-exit-location: 'none'
 
-# Settings for different scoreboard options
-# This doesn't necessarily mean the sidebar
+# 记分板相关设置
+# 不仅限于侧边栏
 scoreboard:
-  # When enabled, name tags will be hidden from all players in the game
+  # 启用时，游戏中所有玩家的名称标签将被隐藏
   hide-nametags: true
   show-health:
     enabled: true
-    # Where to show health
-    # Options are 'player_list' or 'below_name'
-    # Note: 'below_name' won't work if 'hide-nametags' is enabled
+    # 生命值显示位置
+    # 可选 'player_list'（玩家列表）或 'below_name'（名称下方）
+    # 注意：若 'hide-nametags' 启用，'below_name' 将无效
     display-slot: player_list
-    # How to render health
-    # Options are 'hearts' or 'integer'
+    # 生命值显示方式
+    # 可选 'hearts'（心形）或 'integer'（数值）
     render-type: hearts
   teams:
-    # When enabled, players will see nametags of other players on their team
-    # if 'hide-nametags' is disabled, this option is ignored and names will be shown regardless
+    # 启用时，玩家可以看到同队玩家的名称标签
+    # 若 'hide-nametags' 禁用，此设置无效，名称将始终显示
     show-team-nametags: true
-    # Maximum amount of players allowed on a team
+    # 每队允许的最大玩家数量
     max-team-size: 3
-    # When enabled, teammates can hurt each other
+    # 启用时，队友之间可以互相伤害
     allow-friendly-fire: false
-    # When enabled, teammates can see each other if using invisibility potion
+    # 启用时，队友可以看见使用隐身药水的队友
     can-see-friendly-invisibles: true
 mob-spawning:
-  # If mobs will spawn in game arenas
-  # Mobs are defined in the mobs.yml file
+  # 是否在游戏竞技场中生成生物
+  # 生物定义在 mobs.yml 文件中
   enabled: true
-  # How often mobs should spawn (in seconds)
+  # 生物生成间隔（秒）
   interval: 35
-  # Limit how many mobs can spawn per player
+  # 每个玩家周围生成的生物数量上限
   cap-per-player: 5
 reward:
-  # Whether players get a reward when the game is done!
+  # 游戏结束时是否给予玩家奖励
   enabled: true
-  # The cash prize the winner receives. (Set to 0 if you would prefer to use commands instead of money)
+  # 胜利者获得的现金奖励（若不想使用金钱奖励，设置为0）
   cash: 500
-  # You can have the game run commands when a player wins
-  # Can be used for things like vote crate keys, GriefPrevention claim blocks, etc.
-  # Examples:     <player> will be replaced by winner
+  # 玩家胜利时可执行的命令
+  # 可用于发放投票宝箱钥匙、GriefPrevention领地方块等
+  # 示例：    <player> 将被替换为胜利者
   #commands:
   #  - 'say Hi <player>'
   #  - 'crates key give <player> vote 1'
   commands:
     - none
-  # You can send messages to the winner when they win
-  #Examples:     <player> will be replaced by winner, supports color codes
+  # 胜利时发送给玩家的消息
+  #示例：    <player> 将被替换为胜利者，支持颜色代码
   #messages:
-  #  - '&7Congrats &b<player> &7you won a vote key for winning &3Hunger&bGames'
+  #  - '&7恭喜 &b<player> &7你在 &3饥饿&b游戏 中获胜，获得了一个投票钥匙'
   messages:
     - none
 
-# Settings for chests in game
+# 游戏中的箱子设置
 chests:
-  # Regular chests
+  # 普通箱子
   regular:
-    # Min amount of items to appear in a chest
+    # 箱子中物品的最小数量
     min-content: 3
-    # Max amount of items to appear in a chest
+    # 箱子中物品的最大数量
     max-content: 7
-  # Bonus chests
+  # 奖励箱子
   bonus:
     min-content: 1
     max-content: 5
-    # Blocks that will be represented as bonus chests
-    # prefix with '#' to use a block tag
+    # 代表奖励箱子的方块类型
+    # 使用 '#' 前缀表示方块标签
     block-types:
       - 'minecraft:barrel'
       - 'minecraft:trapped_chest'
       - '#minecraft:shulker_boxes'
     randomize:
-      # When enabled, the placed blocks will be replaced when the game starts
-      # The blocks will be replaced with the first element of 'chests.bonus.block-types' from above
+      # 启用时，游戏开始时放置的方块将被替换
+      # 方块将被替换为上方 'chests.bonus.block-types' 的第一个元素
       enabled: true
-      # Place this block randomly around your arena to be replaced when a game starts
-      # Place as many as you'd like
+      # 在竞技场中随机放置此方块，游戏开始时将被替换
+      # 可放置任意数量
       block: 'minecraft:pink_wool'
-      # How many random bonus chests to place (randomly selected between min/max)
-      # If there aren't enough blocks placed it will just stop (make sure to place plenty more than your max)
+      # 随机生成的奖励箱子数量（在最小/最大值之间随机选择）
+      # 若放置的方块不足，将停止生成（请确保放置的数量远大于最大值）
       min: 2
       max: 5
-  # Chest drops
+  # 空投箱子
   chest-drop:
-    # Whether to enable chest drops
+    # 是否启用空投箱子
     enabled: false
-    # Interval for chest drops in seconds
+    # 空投箱子的生成间隔（秒）
     interval: 30
     min-content: 1
     max-content: 5
 rollback:
-  # Let players break blocks in the arena, and restore when the game is done
+  # 允许玩家破坏竞技场中的方块，游戏结束后恢复
   allow-block-break: false
-  # Allow players to take items out of item frames (will be rolled back)
+  # 允许玩家从物品展示框中取出物品（将被恢复）
   allow-itemframe-take: false
-  # The amount of blocks that will be restored during rollback per second (this number is actually divided by 20 and restored in 1 tick intervals)
+  # 每秒恢复的方块数量（此数值实际会除以20，每刻恢复一次）
   blocks-per-second: 500
-  # When enabled, will not allow players to break blocks during the free-roam time
+  # 启用时，自由活动时间内不允许玩家破坏方块
   protect-during-free-roam: true
-  # Prevent players from trampling crops in your arenas
+  # 防止玩家踩踏竞技场中的农作物
   prevent-trampling: true
-  # List of blocks players can break (use 'all' for all blocks)
-  # prefix with '#' to use a block tag
+  # 玩家可破坏的方块列表（使用 'all' 表示所有方块）
+  # 使用 '#' 前缀表示方块标签
   editable-blocks:
     - '#minecraft:wool'
     - '#minecraft:dirt'
@@ -162,46 +160,46 @@ rollback:
     - 'minecraft:stone_bricks'
     - 'minecraft:glass_pane'
 
-## WORLD BORDER
-# Default world border data for arenas
-# Each arena can change some of these values with the `/hg edit` command
-# Borders are client side, and will not harm other players outside the arena
+## 世界边界
+# 竞技场的默认世界边界设置
+# 每个竞技场可通过 `/hg edit` 命令修改部分值
+# 边界为客户端显示，不会影响竞技场外的其他玩家
 world-border:
-  # Enable the world borders for arenas
+  # 是否为竞技场启用世界边界
   enabled: false
-  # If true, when the game starts a world border will start just outside the arena
-  # It will count down based on the time of the arena
+  # 若为true，游戏开始时将在竞技场外生成世界边界
+  # 边界将根据竞技场时间倒计时缩小
   initiate-on-start: true
-  # When the countdown for the arena will start
-  # If `initiate-on-start` is true, the border will just countdown quicker at this time
-  # (ex: 60 = 60 seconds left in the game)(needs to be in increments of 30)
+  # 边界倒计时开始的时间
+  # 若 `initiate-on-start` 为true，边界将在此时间加速倒计时
+  # （例如：60 = 游戏剩余60秒时开始倒计时）（需为30的倍数）
   countdown-start: 60
-  # The time left for the border to stop (any amount, must be less than countdown-start)
-  # (ex: if countdown-start = 60 and countdown-end = 30, once the border starts, the border will shrink to the centre in 30 seconds)
-  # (ex: if countdown-start = 60 and countdown-end = 55, once the border starts, the border will shrink to the centre in 5 seconds)
+  # 边界停止缩小的时间（任意值，需小于 countdown-start）
+  # （例如：若 countdown-start = 60 且 countdown-end = 30，边界将在30秒内缩小到中心）
+  # （例如：若 countdown-start = 60 且 countdown-end = 55，边界将在5秒内缩小到中心）
   countdown-end: 30
-  # Final border size from the centre outward
+  # 边界最终大小（从中心向外计算）
   final-border-size: 30
-  # How to center the world border
-  # Options are 'first-spawn', 'random-spawn' and 'arena-center'
-  # You can also define a specific center for each arena with the '/hg edit' command
+  # 世界边界的中心点
+  # 可选 'first-spawn'（第一个生成点）、'random-spawn'（随机生成点）和 'arena-center'（竞技场中心）
+  # 也可通过 '/hg edit' 命令为每个竞技场单独设置中心点
   center: 'arena-center'
-## SPECTATE
-# When enabled players can spectate games without interfering with players in the game
+## 观战模式
+# 启用时，玩家可以观战游戏而不会干扰游戏中的玩家
 spectate:
-  # Disabled by default
+  # 默认禁用
   enabled: false
-  # When a player dies, they will automatically be put into spectator
+  # 玩家死亡后自动进入观战模式
   death-to-spectate: true
-  # Hide spectating players from other players
+  # 隐藏观战玩家
   hide-spectators: true
-  # Allow spectators to fly in the arena
+  # 允许观战玩家飞行
   fly: true
-  # Allow spectators to chat
+  # 允许观战玩家聊天
   chat: false
 
-# Different sounds played in the game
+# 游戏中的音效设置
 sounds:
-  # Played when a player dies in the game
+  # 玩家死亡时播放的音效
   death: 'ui.toast.challenge_complete'
   open-chest-drop: 'block.ender_chest.open'

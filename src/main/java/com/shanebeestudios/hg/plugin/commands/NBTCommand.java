@@ -26,42 +26,42 @@ public class NBTCommand extends SubCommand {
     protected Argument<?> register() {
         return LiteralArgument.literal("nbt")
             .withPermission(Permissions.COMMAND_NBT.permission())
-            .then(LiteralArgument.literal("item")
+            .then(LiteralArgument.literal("物品")
                 .executesPlayer(info -> {
                     Player player = info.sender();
                     ItemStack itemStack = player.getInventory().getItemInMainHand();
                     if (itemStack.getType() == Material.AIR) {
-                        Util.sendPrefixedMessage(player, "<red>You cannot get NBT from an empty hand.");
+                        Util.sendPrefixedMessage(player, "<red>无法从空手中获取NBT数据");
                         return;
                     }
 
                     NBT.getComponents(itemStack, readableNBT -> {
-                        Util.sendPrefixedMessage(player, "NBT of held item sent to console!");
+                        Util.sendPrefixedMessage(player, "手持物品的NBT数据已发送至控制台！");
                         Util.log("NBT: %s", readableNBT.toString());
                         String pretty = NBTApi.getPrettyNBT(readableNBT.toString(), "   ");
                         if (pretty != null) {
-                            Util.log("Pretty NBT:");
+                            Util.log("格式化后的NBT:");
                             Bukkit.getConsoleSender().sendMessage(System.lineSeparator() + pretty);
                         }
                     });
                 }))
-            .then(LiteralArgument.literal("entity")
+            .then(LiteralArgument.literal("实体")
                 .executesPlayer(info -> {
                     Player player = info.sender();
                     Entity targetEntity = player.getTargetEntity(50);
                     if (targetEntity == null) {
-                        Util.sendPrefixedMessage(player, "<red>Target entity not found.");
+                        Util.sendPrefixedMessage(player, "<red>未找到目标实体");
                         return;
                     }
 
                     EntitySnapshot snapshot = targetEntity.createSnapshot();
                     assert snapshot != null;
                     ReadWriteNBT nbtCopy = NBT.parseNBT(snapshot.getAsString());
-                    Util.sendPrefixedMessage(player, "NBT of target entity sent to console!");
+                    Util.sendPrefixedMessage(player, "目标实体的NBT数据已发送至控制台！");
                     Util.log("NBT: %s", nbtCopy.toString());
                     String pretty = NBTApi.getPrettyNBT(nbtCopy.toString(), "   ");
                     if (pretty != null) {
-                        Util.log("Pretty NBT:");
+                        Util.log("格式化后的NBT:");
                         Bukkit.getConsoleSender().sendMessage(System.lineSeparator() + pretty);
                     }
                 }));

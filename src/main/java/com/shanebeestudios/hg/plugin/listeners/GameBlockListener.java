@@ -40,7 +40,7 @@ public class GameBlockListener extends GameListenerBase {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onAttack(EntityDamageByEntityEvent event) {
-        // Stop players from removing items from item frames
+        // 阻止玩家从道具框架中移除道具
         if (event.getEntity() instanceof Hanging hanging) {
             handleItemFrame(hanging, event, !Config.ROLLBACK_ALLOW_ITEMFRAME_TAKE);
         }
@@ -79,7 +79,7 @@ public class GameBlockListener extends GameListenerBase {
         }
         if (!this.playerManager.hasPlayerData(player)) {
             if (this.gameManager.isInRegion(block.getLocation()) && !Permissions.COMMAND_CREATE.has(player)) {
-                // Prevent non-game players placing blocks in arena
+                // 防止非游戏玩家在竞技场放置方块
                 event.setCancelled(true);
             }
             return;
@@ -109,7 +109,7 @@ public class GameBlockListener extends GameListenerBase {
             }
         } else {
             if (!playerData.hasGameStared()) return;
-            // Prevent placing blocks outside arena
+            // 防止在赛场外放置方块
             event.setCancelled(true);
         }
 
@@ -127,7 +127,7 @@ public class GameBlockListener extends GameListenerBase {
         }
         if (!this.playerManager.hasPlayerData(player)) {
             if (this.gameManager.isInRegion(block.getLocation()) && !Permissions.COMMAND_CREATE.has(player)) {
-                // Prevent non-game players breaking blocks in arena
+                // 防止非游戏玩家在竞技场打破方块
                 event.setCancelled(true);
             }
             return;
@@ -166,7 +166,7 @@ public class GameBlockListener extends GameListenerBase {
             }
         } else {
             if (!playerData.hasGameStared()) return;
-            // Prevent breaking blocks outside arena
+            // 防止在赛场外打破方块
             event.setCancelled(true);
         }
     }

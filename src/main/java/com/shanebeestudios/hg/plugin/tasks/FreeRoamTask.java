@@ -20,7 +20,7 @@ public class FreeRoamTask implements Runnable {
         this.lang = game.getPlugin().getLang();
         int roamTime = game.getGameArenaData().getFreeRoamTime();
         if (roamTime < 0) {
-            // Use default if less than 0
+            // 如果小于 0，则使用默认值
             roamTime = Config.SETTINGS_FREE_ROAM_TIME;
         }
         this.roamTime = Math.max(roamTime, 0);

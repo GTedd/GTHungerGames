@@ -38,31 +38,45 @@ public class ItemManager {
         return this.defaultItemData;
     }
 
+    /**
+     * 加载默认物品配置
+     */
     public void loadDefaultItems() {
-        Util.log("Loading items:");
+        Util.log("正在加载物品配置:");
         File kitFile = new File(this.plugin.getDataFolder(), "items.yml");
 
         if (!kitFile.exists()) {
             this.plugin.saveResource("items.yml", false);
-            Util.log("- New items.yml file has been <green>successfully generated!");
+            Util.log("- 新的items.yml文件已<green>成功生成!");
         }
         YamlConfiguration itemsConfig = YamlConfiguration.loadConfiguration(kitFile);
         ConfigurationSection itemsSection = itemsConfig.getConfigurationSection("items");
         assert itemsSection != null;
         this.defaultItemData = createItemData(itemsSection, null);
-        Util.log("- <aqua>%s <grey>items have been <green>successfully loaded!", this.defaultItemData.getTotalItemCount());
+        Util.log("- 已成功加载 <aqua>%s <grey>个物品!", this.defaultItemData.getTotalItemCount());
     }
 
+    /**
+     * 为游戏加载物品配置
+     * @param game 游戏实例
+     * @param arenaConfig 竞技场配置
+     */
     public void loadGameItems(Game game, ConfigurationSection arenaConfig) {
         ConfigurationSection itemsSection = arenaConfig.getConfigurationSection("items");
         if (itemsSection == null) return;
 
         ItemData itemData = createItemData(itemsSection, game);
-        Util.log("- Loaded <aqua>%s <grey>items for arena <white>'<aqua>%s<white>'",
+        Util.log("- 已为竞技场 <white>'<aqua>%s<white>' <grey>加载 <aqua>%s <grey>个物品",
             itemData.getTotalItemCount(), game.getGameArenaData().getName());
         game.getGameItemData().setItemData(itemData);
     }
 
+    /**
+     * 创建物品数据
+     * @param itemsSection 物品配置节
+     * @param game 游戏实例(可为空)
+     * @return 物品数据
+     */
     private ItemData createItemData(ConfigurationSection itemsSection, @Nullable Game game) {
         ItemData itemData = new ItemData();
 
@@ -70,7 +84,7 @@ public class ItemManager {
             int count = 0;
             ConfigurationSection chestTypeSection = itemsSection.getConfigurationSection(chestType.getName());
             if (chestTypeSection == null) {
-                // If the section does not exist in a game, use defaults
+                // 如果游戏中不存在该节，则使用默认值
                 if (game != null && this.defaultItemData != null) {
                     itemData.setItems(chestType, this.defaultItemData.getItems(chestType));
                     count += this.defaultItemData.getItemCount(chestType);
@@ -82,7 +96,7 @@ public class ItemManager {
                     if (itemSection == null) continue;
 
                     ItemStack itemStack = ItemParser.parseItem(itemSection);
-                    int weight = itemSection.getInt("weight", 1);
+                    int weight = itemSection.getInt("weight", 1); // 物品权重
                     for (int i = 0; i < weight; i++) {
                         items.add(itemStack);
                     }
@@ -95,6 +109,11 @@ public class ItemManager {
         return itemData;
     }
 
+    /**
+     * 加载物品列表
+     * @param config 配置节
+     * @return 物品列表
+     */
     public List<ItemStack> loadItems(ConfigurationSection config) {
         List<ItemStack> items = new ArrayList<>();
         ConfigurationSection itemsSection = config.getConfigurationSection("items");
@@ -104,7 +123,7 @@ public class ItemManager {
                 if (itemSection == null) continue;
 
                 ItemStack itemStack = ItemParser.parseItem(itemSection);
-                int weight = itemSection.getInt("weight", 1);
+                int weight = itemSection.getInt("weight", 1); // 物品权重
                 for (int i = 0; i < weight; i++) {
                     items.add(itemStack);
                 }
@@ -113,6 +132,10 @@ public class ItemManager {
         return items;
     }
 
+    /**
+     * 获取观战者指南针
+     * @return 观战者指南针物品
+     */
     public ItemStack getSpectatorCompass() {
         ItemStack compass = new ItemStack(Material.COMPASS);
         compass.setData(DataComponentTypes.ITEM_NAME, Util.getMini(this.lang.spectate_compass_name));

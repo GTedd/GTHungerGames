@@ -29,8 +29,8 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- * Manager for mob spawning in games
- * <p>Get an instance of this class with {@link HungerGames#getMobManager()}</p>
+ * 游戏内生物生成管理类
+ * <p>通过 {@link HungerGames#getMobManager()} 获取该类的实例</p>
  */
 @SuppressWarnings("unused")
 public class MobManager {
@@ -44,48 +44,57 @@ public class MobManager {
         loadDefaultMobs();
     }
 
+    /**
+     * 加载默认生物配置
+     */
     private void loadDefaultMobs() {
-        Util.log("Loading mobs:");
+        Util.log("正在加载生物配置:");
         File kitFile = new File(this.plugin.getDataFolder(), "mobs.yml");
 
         if (!kitFile.exists()) {
             this.plugin.saveResource("mobs.yml", false);
-            Util.log("- New mobs.yml file has been <green>successfully generated!");
+            Util.log("- 新的 mobs.yml 文件已<green>成功生成!");
         }
         YamlConfiguration mobConfig = YamlConfiguration.loadConfiguration(kitFile);
         ConfigurationSection mobsSection = mobConfig.getConfigurationSection("mobs");
         assert mobsSection != null;
         this.defaultMobData = createMobData(mobsSection, null);
-        Util.log("- <aqua>%s <grey>mobs have been <green>successfully loaded!", this.defaultMobData.getMobCount());
-
+        Util.log("- <aqua>%s <grey>个生物已<green>成功加载!", this.defaultMobData.getMobCount());
     }
 
     /**
-     * Get the default MobData
-     * <p>This is from the mobs.yml file</p>
+     * 获取默认的生物数据
+     * <p>数据来自 mobs.yml 文件</p>
      *
-     * @return Default MobData
+     * @return 默认的生物数据
      */
     public MobData getDefaultMobData() {
         return this.defaultMobData;
     }
 
     /**
-     * Load MobData from an arena config
+     * 从竞技场配置中加载生物数据
      *
-     * @param game        Game to add data to
-     * @param arenaConfig Section of config to grab data from
+     * @param game        游戏实例，用于添加数据
+     * @param arenaConfig 配置节，从中获取生物数据
      */
     public void loadGameMobs(Game game, ConfigurationSection arenaConfig) {
         ConfigurationSection mobsSection = arenaConfig.getConfigurationSection("mobs");
         if (mobsSection == null) return;
 
         MobData mobData = createMobData(mobsSection, game);
-        Util.log("- Loaded <aqua>%s <grey>custom mobs for arena <white>'<aqua>%s<white>'",
-            mobData.getMobCount(), game.getGameArenaData().getName());
+        Util.log("- 为竞技场 <white>'<aqua>%s<white>' <grey>加载了 <aqua>%s <grey>个自定义生物",
+            game.getGameArenaData().getName(), mobData.getMobCount());
         game.getGameEntityData().setMobData(mobData);
     }
 
+    /**
+     * 创建生物数据
+     *
+     * @param mobsSection 配置节，包含生物数据
+     * @param game        游戏实例，可为null
+     * @return 创建好的生物数据
+     */
     private MobData createMobData(ConfigurationSection mobsSection, @Nullable Game game) {
         MobData mobData = new MobData();
         int count = 0;
@@ -104,7 +113,7 @@ public class MobManager {
                 if (typeString == null) continue;
 
                 MobEntry mobEntry;
-                // MYTHIC MOB
+                // 神话生物
                 if (typeString.startsWith("MM:")) {
                     if (this.plugin.getMythicMobManager() == null) continue;
 
@@ -115,22 +124,22 @@ public class MobManager {
                     if (mob.isPresent()) {
                         mobEntry = new MobEntry(mobEntryKey, mob.get(), level);
                     } else {
-                        Util.warning("Invalid MythicMob: %s", mythicMob);
+                        Util.warning("无效的神话生物: %s", mythicMob);
                         continue;
                     }
 
                 }
-                // REGULAR MOB
+                // 普通生物
                 else {
-                    // TYPE
+                    // 生物类型
                     NamespacedKey namespacedKey = NamespacedKey.fromString(typeString);
                     if (namespacedKey == null) {
-                        Util.log("<red>Invalid entity type <white>'<yellow>%s<white>'", typeString);
+                        Util.log("<red>无效的生物类型 <white>'<yellow>%s<white>'", typeString);
                         continue;
                     }
                     EntityType entityType = Registries.ENTITY_TYPE_REGISTRY.get(namespacedKey);
                     if (entityType == null) {
-                        Util.log("<red>Invalid entity type <white>'<yellow>%s<white>'", namespacedKey);
+                        Util.log("<red>无效的生物类型 <white>'<yellow>%s<white>'", namespacedKey);
                         continue;
                     }
 
@@ -140,7 +149,7 @@ public class MobManager {
                         mobEntry.setName(Util.getMini(name));
                     }
 
-                    // GEAR
+                    // 装备
                     ConfigurationSection gearSection = mobSection.getConfigurationSection("gear");
                     if (gearSection != null) {
                         for (EquipmentSlot slot : EquipmentSlot.values()) {
@@ -155,7 +164,7 @@ public class MobManager {
                         }
                     }
 
-                    // POTION_EFFECTS
+                    // 药水效果
                     if (mobSection.contains("potion_effects")) {
                         List<PotionEffect> potionEffects = new ArrayList<>();
                         if (mobSection.isConfigurationSection("potion_effects")) {
@@ -170,20 +179,20 @@ public class MobManager {
                     }
                 }
 
-                // ATTRIBUTES
+                // 属性
                 if (mobSection.isConfigurationSection("attributes")) {
                     ConfigurationSection attributesSection = mobSection.getConfigurationSection("attributes");
                     assert attributesSection != null;
                     for (String key : attributesSection.getKeys(false)) {
                         NamespacedKey attributeKey = NamespacedKey.fromString(key);
                         if (attributeKey == null) {
-                            Util.warning("Attribute key isn't valid '%s' for mob entry '%s:%s'",
+                            Util.warning("属性键 '%s' 对生物条目 '%s:%s' 无效",
                                 key, time, sectionKey);
                             continue;
                         }
                         Attribute attribute = Registries.ATTRIBUTE_REGISTRY.get(attributeKey);
                         if (attribute == null) {
-                            Util.warning("Invalid attribute '%s' for mob entry '%s:%s'",
+                            Util.warning("无效的属性 '%s' 对生物条目 '%s:%s'",
                                 attributeKey.toString(), time, sectionKey);
                             continue;
                         }
@@ -192,13 +201,13 @@ public class MobManager {
                     }
                 }
 
-                // NBT
+                // NBT数据
                 if (mobSection.contains("nbt")) {
                     String nbtString = mobSection.getString("nbt");
                     if (nbtString != null) {
                         String validated = NBTApi.validateNBT(nbtString);
                         if (validated != null) {
-                            Util.warning("Invalid NBT '%s' for mob entry '%s:%s'",
+                            Util.warning("无效的NBT数据 '%s' 对生物条目 '%s:%s'",
                                 nbtString, time, sectionKey);
                         } else {
                             mobEntry.setNbt(nbtString);
@@ -206,7 +215,7 @@ public class MobManager {
                     }
                 }
 
-                // DEATH MESSAGE
+                // 死亡消息
                 String deathMessage = mobSection.getString("death_message", null);
                 if (deathMessage != null) {
                     mobEntry.setDeathMessage(deathMessage);
@@ -221,7 +230,7 @@ public class MobManager {
                     }
                 }
                 if (Config.SETTINGS_DEBUG) {
-                    Util.log("- Loaded mob entry <white>'<aqua>%s<white>'", mobEntryKey);
+                    Util.log("- 已加载生物条目 <white>'<aqua>%s<white>'", mobEntryKey);
                 }
             }
         }

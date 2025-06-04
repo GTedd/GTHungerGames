@@ -1,8 +1,8 @@
-# Mob Manager
-# Customize the mobs that spawn in your games
-# Default mobs which will apply to all arenas which don't have a custom mob setup
+# 生物管理器
+# 自定义游戏中生成的生物
+# 默认生物配置，适用于所有没有自定义生物设置的竞技场
 mobs:
-  # These mobs will only spawn during daytime
+  # 这些生物只会在白天生成
   day:
     'sheep':
       type: minecraft:sheep
@@ -35,7 +35,7 @@ mobs:
       type: minecraft:creeper
       nbt: '{ExplosionRadius:2}'
       weight: 1
-  # These mobs will only spawn during nighttime
+  # 这些生物只会在夜晚生成
   night:
     'wolf':
       type: minecraft:wolf
@@ -67,54 +67,54 @@ mobs:
 example:
   # Example setup for mobs (plugin will ignore these examples)
   night:
-    # Example setup for vanilla mobs
+    # 原版生物配置示例
     'night_guard':
-      # Minecraft ID of entity type
+      # 生物类型的Minecraft ID
       type: minecraft:skeleton
-      # The amount of times this mob will be added to the list to randomly pull from (optional - default = 1)
+      # 此生物被添加到随机选择列表中的次数(可选 - 默认为1)
       weight: 3
-      # The custom name that will appear above this mobs head (optional)
+      # 显示在生物头顶的自定义名称(可选)
       name: '<grey>Night Guard'
 
-      # The gear this mob will be wearing
-      # This follows the same format as the items.yml file
+      # 生物穿戴的装备
+      # 格式与items.yml文件相同
       gear:
-        # The item in this mob's hand
+        # 生物主手物品
         hand:
           id: minecraft:diamond_sword
           count: 1
-        # The item in this mob's offhand
+        # 生物副手物品
         off_hand:
           id: minecraft:diamond_axe
           count: 1
-        # The helmet this mob will be wearing (optional)
+        # 生物头盔(可选)
         head:
           id: minecraft:leather_helmet
           count: 1
           dyed_color: 1908001
-        # The chestplate this mob will be wearing (optional)
+        # 生物胸甲(可选)
         chest:
           id: minecraft:leather_chestplate
           count: 1
           dyed_color: 1908001
-        # The leggings this mob will be wearing (optional)
+        # 生物护腿(可选)
         legs:
           id: minecraft:leather_leggings
           count: 1
           dyed_color: 1908001
-        # The boots this mob will be wearing (optional)
+        # 生物靴子(可选)
         feet:
           id: minecraft:leather_boots
           count: 1
           dyed_color: 1908001
-      # Modify attributes of a mob
+      # 修改生物属性
       attributes:
         'minecraft:scale': 1.2
 
-      # The death message that will be sent when a player is killed by this mob (optional)
-      death_message: '<yellow><player> <red>was killed by a deadly <grey>Night Guard'
+      # 玩家被此生物杀死时发送的死亡消息(可选)
+      death_message: '<yellow><player> <red>被致命的<grey>夜班守卫<red>杀死'
 
-      # The potion effects to be applied to this mob (optional)
+      # 应用于此生物的药水效果(可选)
       potion_effects:
         'minecraft:speed':
           duration: -1
@@ -139,19 +139,19 @@ example:
         head:
           id: minecraft:golden_helmet
           count: 1
-      death_message: '<aqua><player> <red>was slaughtered by <aqua>The Beast'
+      death_message: '<aqua><player> <red>被<aqua>野兽<red>屠杀'
       potion_effects:
         'minecraft:health_boost':
           duration: -1
           amplifier: 1
-    # Example setup for MythicMobs
+    # MythicMobs生物配置示例
     'skeleton_king':
-      # Preface your MythicMob with "MM:"
+      # 在MythicMob前加上"MM:"前缀
       type: MM:SkeletonKing
       # I have no clue what level is for (optional - default = 1)
       level: 1
-      # The amount of times this mob will be added to the list to randomly pull from (optional - default = 1)
+      # 此生物被添加到随机选择列表中的次数(可选 - 默认为1)
       weight: 3
-      # The death message that will be sent when a player is killed by this mob (optional)
-      death_message: '<aqua><player> <red>was sliced in half by a <yellow>Skeleton King'
+      # 玩家被此生物杀死时发送的死亡消息(可选)
+      death_message: '<aqua><player> <red>被<yellow>骷髅王<red>劈成两半'
 

@@ -49,13 +49,13 @@ public class GameTimerTask implements Runnable {
 
         if (Config.SETTINGS_BOSSBAR_COUNTDOWN) this.game.getGameBarData().bossBarUpdate(this.remainingTime);
 
-        // Refill chests
+        // 重新装满箱子
         if (this.gameArenaData.getChestRefillTime() > 0 && this.remainingTime == this.gameArenaData.getChestRefillTime()) {
             this.gameBlockData.markChestForRefill();
             this.gamePlayerData.messageAllActivePlayers(this.lang.game_chest_refill);
         }
 
-        // Final teleport to center
+        // 最后传送到中心
         if (this.teleportTimer > 0 && this.remainingTime == this.teleportTimer) {
             this.gamePlayerData.messageAllActivePlayers(this.lang.game_almost_over);
             this.gamePlayerData.respawnAll();

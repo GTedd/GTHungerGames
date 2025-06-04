@@ -40,7 +40,7 @@ public class GameLobbyListener extends GameListenerBase {
                 Util.sendMessage(player, this.lang.command_delete_no_exist);
             } else {
                 if (player.getInventory().getItemInMainHand().getType() == Material.AIR) {
-                    // Process this after event has finished running to prevent double click issues
+                    // 在事件完成运行后处理此事件，以防止双击问题
                     Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> game.joinGame(player), 2);
                 } else {
                     Util.sendMessage(player, this.lang.listener_sign_click_hand);

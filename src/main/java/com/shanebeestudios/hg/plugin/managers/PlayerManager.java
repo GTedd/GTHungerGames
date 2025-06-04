@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * General player manager
- * <p>You can get an instance of this from <b>{@link HungerGames#getPlayerManager()}</b></p>
+ * 玩家管理器
+ * <p>可以通过<b>{@link HungerGames#getPlayerManager()}</b>获取此类的实例</p>
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class PlayerManager {
@@ -27,30 +27,30 @@ public class PlayerManager {
     }
 
     /**
-     * Check if a player is playing a game and has PlayerData
+     * 检查玩家是否在游戏中且拥有玩家数据
      *
-     * @param player Player to check
-     * @return True if player is playing in a game and has data
+     * @param player 要检查的玩家
+     * @return 如果玩家在游戏中且有数据则返回true
      */
     public boolean hasPlayerData(Player player) {
         return this.playerMap.containsKey(player.getUniqueId());
     }
 
     /**
-     * Check if a player is spectating a game and has PlayerData
+     * 检查玩家是否在观战且拥有玩家数据
      *
-     * @param player Player to check
-     * @return True if player is spectating a game and has data
+     * @param player 要检查的玩家
+     * @return 如果玩家在观战且有数据则返回true
      */
     public boolean hasSpectatorData(Player player) {
         return this.spectatorMap.containsKey(player.getUniqueId());
     }
 
     /**
-     * Get an instance of a player's data if player is playing in a game
+     * 获取游戏中玩家的数据实例
      *
-     * @param player Player to get data for
-     * @return PlayerData from player, null if player is not in a game
+     * @param player 要获取数据的玩家
+     * @return 玩家的PlayerData，如果玩家不在游戏中则返回null
      */
     @Nullable
     public PlayerData getPlayerData(Player player) {
@@ -62,10 +62,10 @@ public class PlayerManager {
     }
 
     /**
-     * Get an instance of a player's data if player is spectating a game
+     * 获取观战玩家的数据实例
      *
-     * @param player Player to get data for
-     * @return PlayerData from player, null if player is not spectating a game
+     * @param player 要获取数据的玩家
+     * @return 玩家的PlayerData，如果玩家不在观战则返回null
      */
     @Nullable
     public PlayerData getSpectatorData(Player player) {
@@ -77,12 +77,12 @@ public class PlayerManager {
     }
 
     /**
-     * Get an instance of a player's data if player is in a game
-     * <p>This will first check if a player is playing in a game, then check if they are spectating a game.
-     * <br>If you would like specific data use {@link #getPlayerData(Player)} or {@link #getSpectatorData(Player)}</p>
+     * 获取游戏中玩家的数据实例
+     * <p>首先检查玩家是否在游戏中，然后检查是否在观战
+     * <br>如果需要特定数据，请使用{@link #getPlayerData(Player)}或{@link #getSpectatorData(Player)}</p>
      *
-     * @param player Player to get data for
-     * @return PlayerData from player, null if player is not in a game
+     * @param player 要获取数据的玩家
+     * @return 玩家的PlayerData，如果玩家不在游戏中则返回null
      */
     @Nullable
     public PlayerData getData(Player player) {
@@ -94,10 +94,10 @@ public class PlayerManager {
     }
 
     /**
-     * Create {@link PlayerData} for a player
+     * 为玩家创建{@link PlayerData}
      *
-     * @param player Player to create data for
-     * @param game   Game player is entering
+     * @param player 要创建数据的玩家
+     * @param game   玩家正在进入的游戏
      */
     public void createPlayerData(Player player, Game game) {
         PlayerData playerData = new PlayerData(player, game);
@@ -105,10 +105,10 @@ public class PlayerManager {
     }
 
     /**
-     * Create {@link PlayerData} for a spectator
+     * 为观战者创建{@link PlayerData}
      *
-     * @param spectator Player to create data for
-     * @param game      Game player is entering
+     * @param spectator 要创建数据的观战者
+     * @param game      观战者正在进入的游戏
      */
     public void createSpectatorData(Player spectator, Game game) {
         PlayerData playerData = new PlayerData(spectator, game);
@@ -116,45 +116,45 @@ public class PlayerManager {
     }
 
     /**
-     * Remove a PlayerData from the PlayerData map
+     * 从PlayerData映射中移除玩家数据
      *
-     * @param player Holder of PlayerData to remove
+     * @param player 要移除PlayerData的持有者
      */
     public void removePlayerData(Player player) {
         this.playerMap.remove(player.getUniqueId());
     }
 
     /**
-     * Remove a PlayerData from the PlayerData map
+     * 从PlayerData映射中移除玩家数据
      *
-     * @param uuid UUID of holder of PlayerData to remove
+     * @param uuid 要移除PlayerData的持有者的UUID
      */
     public void removePlayerData(UUID uuid) {
         this.playerMap.remove(uuid);
     }
 
     /**
-     * Remove a PlayerData from the SpectatorData map
+     * 从SpectatorData映射中移除玩家数据
      *
-     * @param player Holder of PlayerData to remove
+     * @param player 要移除PlayerData的持有者
      */
     public void removeSpectatorData(Player player) {
         this.spectatorMap.remove(player.getUniqueId());
     }
 
     /**
-     * Remove a PlayerData from the SpectatorData map
+     * 从SpectatorData映射中移除玩家数据
      *
-     * @param uuid UUID of holder of PlayerData to remove
+     * @param uuid 要移除PlayerData的持有者的UUID
      */
     public void removeSpectatorData(UUID uuid) {
         this.spectatorMap.remove(uuid);
     }
 
     /**
-     * Transfer {@link PlayerData} from Player to Spectator
+     * 将{@link PlayerData}从玩家转移到观战者
      *
-     * @param player Player to transfer
+     * @param player 要转移的玩家
      */
     public void transferPlayerDataToSpectator(Player player) {
         UUID uuid = player.getUniqueId();
@@ -168,10 +168,10 @@ public class PlayerManager {
     }
 
     /**
-     * Get the current game of a player
+     * 获取玩家当前所在的游戏
      *
-     * @param player Player to get game
-     * @return Game of player, null if player is not in a game
+     * @param player 要获取游戏的玩家
+     * @return 玩家所在的游戏，如果玩家不在游戏中则返回null
      */
     @SuppressWarnings("DataFlowIssue")
     public @Nullable Game getGame(Player player) {
@@ -184,20 +184,20 @@ public class PlayerManager {
     }
 
     /**
-     * Check if a player is already in a game
+     * 检查玩家是否已在游戏中
      *
-     * @param player Player to check
-     * @return True if in game, otherwise false
+     * @param player 要检查的玩家
+     * @return 如果在游戏中则返回true，否则返回false
      */
     public boolean isInGame(Player player) {
         return getPlayerStatus(player) != PlayerStatus.NOT_IN_GAME;
     }
 
     /**
-     * Get the status of a player
+     * 获取玩家的状态
      *
-     * @param player Player to get status for
-     * @return Status of player
+     * @param player 要获取状态的玩家
+     * @return 玩家的状态
      */
     public PlayerStatus getPlayerStatus(Player player) {
         if (hasPlayerData(player)) return PlayerStatus.IN_GAME;
